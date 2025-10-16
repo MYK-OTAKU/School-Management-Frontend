@@ -29,18 +29,18 @@ const Categories = () => {
   const isDarkMode = effectiveTheme === 'dark';
 
   // Styles dynamiques basés sur le thème
-  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-gray-400') : (isPrimary ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]');
-  const getBgClass = () => isDarkMode ? 'bg-gray-900' : 'bg-[var(--background-primary)]';
-  const getCardBgClass = () => isDarkMode ? 'bg-gray-800' : 'bg-white';
-  const getBorderColorClass = () => isDarkMode ? 'border-purple-400/20' : 'border-[var(--border-color)]';
-  const getInputBorderClass = () => isDarkMode ? 'border-gray-600' : 'border-[var(--border-color)]';
-  const getInputBgClass = () => isDarkMode ? 'bg-gray-700/50' : 'bg-[var(--background-input)]';
-  const getInputTextClass = () => isDarkMode ? 'text-white' : 'text-[var(--text-primary)]';
-  const getInputPlaceholderClass = () => isDarkMode ? 'placeholder-gray-400' : 'placeholder-[var(--text-secondary)]';
-  const getInputFocusRingClass = () => isDarkMode ? 'focus:ring-purple-500' : 'focus:ring-[var(--accent-color-primary)]';
-  const getButtonBgClass = () => isDarkMode ? 'bg-purple-600' : 'bg-[var(--accent-color-primary)]';
-  const getButtonHoverBgClass = () => isDarkMode ? 'hover:bg-purple-700' : 'hover:opacity-80';
-  const getAccentColorClass = () => isDarkMode ? 'text-purple-400' : 'text-[var(--accent-color-primary)]';
+  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-[color:var(--text-primary)]' : 'text-[color:rgba(226,232,240,0.75)]') : (isPrimary ? 'text-[color:var(--text-primary)]' : 'text-[color:var(--text-secondary)]');
+  const getBgClass = () => 'bg-[color:var(--background-primary)]';
+  const getCardBgClass = () => 'bg-[color:var(--background-card)]';
+  const getBorderColorClass = () => 'border-[color:var(--border-color)]';
+  const getInputBorderClass = () => 'border-[color:var(--border-color)]';
+  const getInputBgClass = () => 'bg-[color:var(--background-input)]';
+  const getInputTextClass = () => 'text-[color:var(--text-primary)]';
+  const getInputPlaceholderClass = () => 'placeholder-[color:var(--text-secondary)]';
+  const getInputFocusRingClass = () => 'focus:ring-[color:var(--accent-color-primary)]';
+  const getButtonBgClass = () => 'bg-[color:var(--accent-color-primary)]';
+  const getButtonHoverBgClass = () => 'hover:bg-[color:var(--accent-color-secondary)]/80';
+  const getAccentColorClass = () => 'text-[color:var(--accent-color-primary)]';
 
   const loadCategories = useCallback(async () => {
     try {

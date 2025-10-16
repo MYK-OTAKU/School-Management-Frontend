@@ -48,12 +48,12 @@ const ActivityStats = () => {
   const { totals, topActions, dailyActivity } = stats.data;
 
   // Couleurs pour les graphiques
-  const colors = ['#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
+  const colors = ['#3B82F6', '#0EA5E9', '#10B981', '#F59E0B', '#EF4444'];
 
   // Données pour le graphique en secteurs
   const pieData = [
-    { name: 'Succès', value: totals.successLogs, color: '#10b981' },
-    { name: 'Échecs', value: totals.failureLogs, color: '#ef4444' }
+    { name: 'Succès', value: totals.successLogs, color: '#10B981' },
+    { name: 'Échecs', value: totals.failureLogs, color: '#EF4444' }
   ];
 
   return (
@@ -78,8 +78,8 @@ const ActivityStats = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="p-3 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-              <BarChart3 className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <div className="p-3 bg-primary-100 dark:bg-primary-900/20 rounded-lg">
+              <BarChart3 className="w-6 h-6 text-primary-600 dark:text-primary-300" />
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">Total Activités</p>
@@ -92,8 +92,8 @@ const ActivityStats = () => {
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="p-3 bg-success-100 dark:bg-success-900/20 rounded-lg">
+              <TrendingUp className="w-6 h-6 text-success-600 dark:text-success-300" />
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">Taux de Succès</p>
@@ -106,8 +106,8 @@ const ActivityStats = () => {
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="p-3 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-              <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-3 bg-accent-100 dark:bg-accent-900/20 rounded-lg">
+              <Users className="w-6 h-6 text-accent-600 dark:text-accent-300" />
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">Utilisateurs Actifs</p>
@@ -120,8 +120,8 @@ const ActivityStats = () => {
 
         <Card className="p-6">
           <div className="flex items-center">
-            <div className="p-3 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
-              <Activity className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            <div className="p-3 bg-error-100 dark:bg-error-900/20 rounded-lg">
+              <Activity className="w-6 h-6 text-error-600 dark:text-error-300" />
             </div>
             <div className="ml-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">Échecs</p>
@@ -159,9 +159,9 @@ const ActivityStats = () => {
                 <Line 
                   type="monotone" 
                   dataKey="count" 
-                  stroke="#8b5cf6" 
+                  stroke="#3B82F6" 
                   strokeWidth={2}
-                  dot={{ fill: '#8b5cf6', strokeWidth: 2, r: 4 }}
+                  dot={{ fill: '#0EA5E9', strokeWidth: 2, r: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -207,7 +207,7 @@ const ActivityStats = () => {
               <XAxis type="number" />
               <YAxis dataKey="action" type="category" width={120} />
               <Tooltip formatter={(value) => [value, 'Occurrences']} />
-              <Bar dataKey="count" fill="#8b5cf6" />
+              <Bar dataKey="count" fill="#3B82F6" />
             </BarChart>
           </ResponsiveContainer>
         </div>

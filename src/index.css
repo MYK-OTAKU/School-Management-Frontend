@@ -2,21 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variables CSS pour les couleurs personnalisées */
+/* Variables CSS pour le thème "EduTech Classic" */
 :root {
-  /* Couleurs par défaut */
-  --color-primary: 139 92 246; /* purple-500 */
-  --color-secondary: 6 182 212; /* cyan-500 */
-  --color-accent: 236 72 153; /* pink-500 */
-  
-  /* Taille de police par défaut */
+  /* 🎨 Palette EduTech Classic (Light Mode) */
+  --color-primary: 59 130 246;      /* #3B82F6 */
+  --color-secondary: 241 245 249;   /* #F1F5F9 */
+  --color-accent: 14 165 233;       /* #0EA5E9 */
+  --color-success: 16 185 129;      /* #10B981 */
+  --color-warning: 245 158 11;      /* #F59E0B */
+  --color-error: 239 68 68;        /* #EF4444 */
+  --color-text-main: 30 41 59;      /* #1E293B */
+  --color-text-muted: 100 116 139;  /* #64748B */
+  --color-background: 249 250 251;  /* #F9FAFB */
+  --color-card: 255 255 255;        /* #FFFFFF */
+
   --font-size-base: 16px;
+}
+
+.dark {
+  /* 🎨 Palette EduTech Classic (Dark Mode) */
+  --color-primary: 59 130 246;      /* #3B82F6 */
+  --color-secondary: 241 245 249;   /* #F1F5F9 - Note: Peut nécessiter un ajustement pour le mode sombre */
+  --color-accent: 14 165 233;       /* #0EA5E9 */
+  --color-success: 16 185 129;      /* #10B981 */
+  --color-warning: 245 158 11;      /* #F59E0B */
+  --color-error: 239 68 68;        /* #EF4444 */
+  --color-text-main: 241 245 249;   /* #F1F5F9 */
+  --color-text-muted: 100 116 139;  /* #64748B */
+  --color-background: 15 23 42;     /* #0F172A */
+  --color-card: 30 41 59;           /* #1E293B */
 }
 
 /* Styles de base pour l'application */
 body {
   font-size: var(--font-size-base);
-  transition: font-size 0.3s ease;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-text-main));
+  transition: font-size 0.3s ease, background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Animations personnalisées */
@@ -137,7 +159,7 @@ body {
 
 /* Styles pour les cartes */
 .card {
-  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 transition-all duration-200;
+  @apply bg-card border-secondary-200 dark:border-secondary-700 rounded-lg shadow-md border transition-all duration-200;
 }
 
 .card:hover {
@@ -147,7 +169,7 @@ body {
 
 /* Styles pour les inputs */
 .input-field {
-  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200;
+  @apply w-full px-3 py-2 border border-secondary-300 dark:border-secondary-600 rounded-lg bg-card text-text-main placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
 }
 
 /* Styles pour les badges */
@@ -176,19 +198,19 @@ body {
 }
 
 .alert-info {
-  @apply bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-200;
+  @apply bg-primary-100 dark:bg-primary-900 border-primary-200 dark:border-primary-700 text-primary-800 dark:text-primary-200;
 }
 
 .alert-success {
-  @apply bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700 text-green-800 dark:text-green-200;
+  @apply bg-success-100 dark:bg-success-900 border-success-200 dark:border-success-700 text-success-800 dark:text-success-200;
 }
 
 .alert-warning {
-  @apply bg-yellow-50 dark:bg-yellow-900 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200;
+  @apply bg-warning-100 dark:bg-warning-900 border-warning-200 dark:border-warning-700 text-warning-800 dark:text-warning-200;
 }
 
 .alert-error {
-  @apply bg-red-50 dark:bg-red-900 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200;
+  @apply bg-error-100 dark:bg-error-900 border-error-200 dark:border-error-700 text-error-800 dark:text-error-200;
 }
 
 /* Styles pour les loaders */

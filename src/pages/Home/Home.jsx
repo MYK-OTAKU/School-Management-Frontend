@@ -22,20 +22,20 @@ const StatCard = ({ icon: Icon, title, value, subtitle, color = 'purple', trend 
   const isDarkMode = effectiveTheme === 'dark';
 
   const colorClasses = {
-    purple: 'from-purple-600 to-blue-600',
-    green: 'from-green-600 to-teal-600',
-    orange: 'from-orange-600 to-red-600',
-    blue: 'from-blue-600 to-indigo-600',
-    red: 'from-red-600 to-pink-600'
+    purple: 'from-[var(--accent-color-primary)] to-[var(--accent-color-secondary)]',
+    green: 'from-[var(--accent-color-tertiary)] to-[var(--success-color)]',
+    orange: 'from-[var(--warning-color)] to-[var(--accent-color-secondary)]',
+    blue: 'from-[var(--accent-color-primary)] to-[rgba(58,123,213,0.85)]',
+    red: 'from-[var(--error-color)] to-[rgba(214,69,69,0.85)]'
   };
 
-  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-gray-300') : (isPrimary ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]');
-  const getBorderColorClass = () => isDarkMode ? 'border-purple-400/20' : 'border-[var(--border-color)]';
+  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-[rgba(226,232,240,0.8)]') : (isPrimary ? 'text-[color:var(--text-primary)]' : 'text-[color:var(--text-secondary)]');
+  const getBorderColorClass = () => 'border-[color:var(--border-color)]';
   const getCardBgClass = () => 'var(--background-card)';
 
   return (
     <div 
-      className={`p-6 rounded-xl border ${getBorderColorClass()} hover:border-purple-400/40 transition-all duration-300 transform hover:scale-105`}
+      className={`p-6 rounded-xl border ${getBorderColorClass()} transition-all duration-300 transform hover:scale-105`}
       style={{
         background: getCardBgClass(),
         backdropFilter: 'blur(10px)'
@@ -72,23 +72,22 @@ const QuickActionCard = ({ title, description, icon: Icon, onClick, color = 'pur
   const isDarkMode = effectiveTheme === 'dark';
 
   const colorClasses = {
-    purple: 'from-purple-600 to-blue-600',
-    green: 'from-green-600 to-teal-600',
-    orange: 'from-orange-600 to-red-600',
-    blue: 'from-blue-600 to-indigo-600',
-    red: 'from-red-600 to-pink-600'
+    purple: 'from-[var(--accent-color-primary)] to-[var(--accent-color-secondary)]',
+    green: 'from-[var(--accent-color-tertiary)] to-[var(--success-color)]',
+    orange: 'from-[var(--warning-color)] to-[var(--accent-color-secondary)]',
+    blue: 'from-[var(--accent-color-primary)] to-[rgba(58,123,213,0.85)]',
+    red: 'from-[var(--error-color)] to-[rgba(214,69,69,0.85)]'
   };
 
-  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-gray-300') : (isPrimary ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]');
-  const getBorderColorClass = () => isDarkMode ? 'border-purple-400/20' : 'border-[var(--border-color)]';
-  const getCardBgClass = () => 'var(--background-card)';
+  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-[rgba(226,232,240,0.8)]') : (isPrimary ? 'text-[color:var(--text-primary)]' : 'text-[color:var(--text-secondary)]');
+  const borderClass = 'border-[color:var(--border-color)]';
 
   return (
     <div
       onClick={onClick}
-      className={`p-6 rounded-xl border ${getBorderColorClass()} hover:border-purple-400/40 transition-all duration-300 transform hover:scale-105 cursor-pointer`}
+      className={`p-6 rounded-xl border ${borderClass} transition-all duration-300 transform hover:scale-105 cursor-pointer`}
       style={{
-        background: getCardBgClass(),
+        background: 'var(--background-card)',
         backdropFilter: 'blur(10px)'
       }}
     >
@@ -255,8 +254,8 @@ const Home = () => {
       {/* Statistiques système et activité récente */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         <div 
-          className="p-6 rounded-xl border border-purple-400/20 col-span-1"
-          style={{ background: 'var(--background-card)' }}
+          className="p-6 rounded-xl border col-span-1"
+          style={{ background: 'var(--background-card)', borderColor: 'var(--border-color)' }}
         >
           <h3 className={`text-lg font-semibold ${getTextColorClass(true)} mb-4 flex items-center`}>
             <Monitor className="mr-2" size={20} />
@@ -285,8 +284,8 @@ const Home = () => {
 
         {/* Activité récente */}
         <div 
-          className="p-6 rounded-xl border border-purple-400/20 col-span-2"
-          style={{ background: 'var(--background-card)' }}
+          className="p-6 rounded-xl border col-span-2"
+          style={{ background: 'var(--background-card)', borderColor: 'var(--border-color)' }}
         >
           <h3 className={`text-lg font-semibold ${getTextColorClass(true)} mb-4 flex items-center`}>
             <Clock className="mr-2" size={20} />
@@ -294,19 +293,19 @@ const Home = () => {
           </h3>
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 rounded-full bg-[color:var(--accent-color-tertiary)]"></div>
               <span className={`${getTextColorClass(false)} text-sm`}>
                 {getTranslation('home.userLoggedIn', 'Utilisateur connecté')}{getTranslation('recentActivities.userLoggedInExample', ' - Admin (il y a 5 min)')}
               </span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <div className="w-2 h-2 rounded-full bg-[color:var(--accent-color-primary)]"></div>
               <span className={`${getTextColorClass(false)} text-sm`}>
                 {getTranslation('home.roleUpdated', 'Rôle mis à jour')}{getTranslation('recentActivities.roleUpdatedExample', ' - Manager (il y a 15 min)')}
               </span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <div className="w-2 h-2 rounded-full bg-[color:var(--accent-color-secondary)]"></div>
               <span className={`${getTextColorClass(false)} text-sm`}>
                 {getTranslation('home.systemBackup', 'Sauvegarde système')}{getTranslation('recentActivities.systemBackupExample', ' (il y a 2h)')}
               </span>

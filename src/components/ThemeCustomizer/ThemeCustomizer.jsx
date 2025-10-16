@@ -7,9 +7,9 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
   const { theme, setTheme, availableThemes, effectiveTheme } = useTheme();
   const { translations } = useLanguage();
   const [customColors, setCustomColors] = useState({
-    primary: '#8b5cf6',
-    secondary: '#06b6d4',
-    accent: '#ec4899'
+    primary: '#3B82F6',
+    secondary: '#F1F5F9',
+    accent: '#0EA5E9'
   });
   const [fontSize, setFontSize] = useState('medium');
   const [previewMode, setPreviewMode] = useState(false);
@@ -80,9 +80,9 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
     localStorage.removeItem('customFontSize');
     
     setCustomColors({
-      primary: '#8b5cf6',
-      secondary: '#06b6d4',
-      accent: '#ec4899'
+      primary: '#3B82F6',
+      secondary: '#F1F5F9',
+      accent: '#0EA5E9'
     });
     setFontSize('medium');
   };
@@ -118,7 +118,7 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <Palette className="w-5 h-5 text-purple-500" />
+            <Palette className="w-5 h-5 text-primary-500" />
             <h2 className="text-lg font-semibold">
               {translations.themeCustomization || 'Personnalisation du thème'}
             </h2>
@@ -145,7 +145,7 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
                 onClick={() => setTheme(themeOption.value)}
                 className={`p-3 rounded-lg border-2 transition-all ${
                   theme === themeOption.value
-                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
                     : isDarkMode
                     ? 'border-gray-600 hover:border-gray-500'
                     : 'border-gray-200 hover:border-gray-300'
@@ -216,7 +216,7 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
                 onClick={() => setFontSize(size)}
                 className={`p-2 rounded border-2 transition-all text-sm ${
                   fontSize === size
-                    ? 'border-purple-500 bg-purple-50 dark:bg-purple-900'
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
                     : isDarkMode
                     ? 'border-gray-600 hover:border-gray-500'
                     : 'border-gray-200 hover:border-gray-300'
@@ -260,7 +260,7 @@ const ThemeCustomizer = ({ isOpen, onClose }) => {
           
           <button
             onClick={applyTheme}
-            className="p-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-all"
+            className="p-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-all"
             title={translations.themeApply || 'Appliquer'}
           >
             <Check className="w-5 h-5" />

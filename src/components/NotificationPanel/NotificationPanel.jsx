@@ -105,11 +105,11 @@ const NotificationPanel = ({ onClose }) => {
   };
 
   // Styles cohérents avec le header (Inchangement)
-  const panelBg = 'rgba(30, 41, 59, 0.95)';
-  const borderColor = 'border-purple-400/20';
-  const textPrimary = 'text-gray-300';
-  const textSecondary = 'text-gray-400';
-  const hoverBg = 'hover:bg-purple-600/20';
+  const panelBg = 'rgba(12, 34, 74, 0.95)';
+  const borderColor = 'border-blue-400/20';
+  const textPrimary = 'text-slate-100';
+  const textSecondary = 'text-slate-300';
+  const hoverBg = 'hover:bg-blue-500/10';
 
   return (
     <div 
@@ -121,11 +121,11 @@ const NotificationPanel = ({ onClose }) => {
       }}
     >
       {/* Header */}
-      <div className={`p-5 border-b ${borderColor} bg-gradient-to-r from-purple-500/10 to-blue-500/10`}>
+      <div className={`p-5 border-b ${borderColor} bg-gradient-to-r from-blue-600/10 via-blue-500/10 to-emerald-500/10`}>
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-lg bg-purple-500/20">
-              <Bell className="text-purple-400" size={20} />
+          <div className="flex items-center space-x-3">
+            <div className="p-2 rounded-lg bg-blue-500/15">
+              <Bell className="text-blue-400" size={20} />
             </div>
             <div>
               <h3 className={`font-semibold text-lg ${textPrimary}`}>
@@ -158,11 +158,11 @@ const NotificationPanel = ({ onClose }) => {
 
         {/* Filtres */}
         <div className="flex items-center space-x-3">
-          <Filter className="text-purple-400" size={16} />
+          <Filter className="text-blue-400" size={16} />
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className={`text-sm px-3 py-2 rounded-lg bg-gray-800/50 border ${borderColor} ${textPrimary} focus:outline-none focus:ring-2 focus:ring-purple-400/50 transition-all duration-200`}
+          className={`text-sm px-3 py-2 rounded-lg bg-slate-900/40 border ${borderColor} ${textPrimary} focus:outline-none focus:ring-2 focus:ring-blue-400/40 transition-all duration-200`}
             // Traduction: Aria-label pour l'accessibilité
             aria-label={getTranslation('common.filter', 'Filtrer')}
           >
@@ -217,9 +217,9 @@ const NotificationPanel = ({ onClose }) => {
               </button>
             </div>
             
-            <button
-              onClick={handleGoToSettings}
-              className={`text-sm px-3 py-2 rounded-lg flex items-center space-x-2 ${textSecondary} hover:bg-purple-500/20 hover:text-purple-400 border border-purple-500/30 transition-all duration-200 font-medium`}
+            <button
+              onClick={handleGoToSettings}
+              className={`text-sm px-3 py-2 rounded-lg flex items-center space-x-2 ${textSecondary} hover:bg-blue-500/15 hover:text-blue-300 border border-blue-400/30 transition-all duration-200 font-medium`}
               // Traduction: Tooltip et texte du bouton
               title={getTranslation('notifications.manageButton', 'Gérer')}
             >
@@ -254,11 +254,11 @@ const NotificationPanel = ({ onClose }) => {
           filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`p-4 border-b border-gray-700/30 transition-all duration-200 ${hoverBg} ${
-                !notification.isRead 
-                  ? 'border-l-4 border-l-blue-400 bg-blue-500/10 shadow-md' 
-                  : 'border-l-4 border-l-transparent bg-gray-800/20'
-              } hover:border-l-purple-400 group cursor-pointer`}
+            className={`p-4 border-b border-slate-800/40 transition-all duration-200 ${hoverBg} ${
+              !notification.isRead 
+                ? 'border-l-4 border-l-blue-400 bg-blue-500/15 shadow-md' 
+                : 'border-l-4 border-l-transparent bg-slate-900/20'
+            } hover:border-l-emerald-400 group cursor-pointer`}
               // onClick action here...
             >
               <div className="flex items-start gap-3">
@@ -286,9 +286,9 @@ const NotificationPanel = ({ onClose }) => {
                           e.stopPropagation();
                           handleToggleRead(notification);
                         }}
-                        className={`p-1.5 rounded-lg transition-all duration-200 ${
+                    className={`p-1.5 rounded-lg transition-all duration-200 ${
                           notification.isRead
-                            ? `${textSecondary} hover:text-blue-400 hover:bg-blue-400/20`
+                        ? `${textSecondary} hover:text-blue-300 hover:bg-blue-500/15`
                             : 'text-blue-400 hover:text-blue-300 hover:bg-blue-400/20'
                         }`}
                         // Traduction: Tooltip pour marquer lu/non lu (accessibilité)
@@ -306,7 +306,7 @@ const NotificationPanel = ({ onClose }) => {
                           e.stopPropagation();
                           dismissNotification(notification.id);
                         }}
-                        className={`p-1.5 rounded-lg transition-all duration-200 ${textSecondary} hover:text-red-400 hover:bg-red-400/20`}
+                    className={`p-1.5 rounded-lg transition-all duration-200 ${textSecondary} hover:text-red-400 hover:bg-red-400/20`}
                         // Traduction: Tooltip pour supprimer (accessibilité)
                         title={getTranslation('notifications.deleteTooltip', 'Supprimer')}
                       >
@@ -369,10 +369,10 @@ const NotificationPanel = ({ onClose }) => {
 
       {/* Footer avec bouton vers page complète */}
       {notifications.length > 0 && (
-        <div className={`p-4 border-t ${borderColor} bg-gradient-to-r from-purple-500/5 to-blue-500/5`}>
+        <div className={`p-4 border-t ${borderColor} bg-gradient-to-r from-blue-600/5 via-blue-500/5 to-emerald-500/5`}>
           <button
             onClick={handleGoToSettings}
-            className={`w-full py-3 px-4 rounded-lg flex items-center justify-center space-x-2 ${textSecondary} hover:bg-purple-500/20 hover:text-purple-400 border border-purple-500/30 transition-all duration-200 font-medium`}
+            className={`w-full py-3 px-4 rounded-lg flex items-center justify-center space-x-2 ${textSecondary} hover:bg-blue-500/15 hover:text-blue-300 border border-blue-400/30 transition-all duration-200 font-medium`}
             // Traduction: Tooltip et texte du bouton
             title={getTranslation('notifications.manageLink', 'Gérer les notifications')}
           >

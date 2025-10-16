@@ -7,61 +7,61 @@ const TOAST_TYPES = {
   success: {
     icon: CheckCircle,
     bgClass: {
-      dark: 'bg-green-600/90',
-      light: 'bg-green-500/90'
+      dark: 'bg-success-600/90',
+      light: 'bg-success-500/90'
     },
     borderClass: {
-      dark: 'border-green-500/50',
-      light: 'border-green-400/50'
+      dark: 'border-success-500/50',
+      light: 'border-success-400/50'
     },
     iconColor: {
-      dark: 'text-green-300',
-      light: 'text-green-600'
+      dark: 'text-success-300',
+      light: 'text-success-600'
     }
   },
   error: {
     icon: XCircle,
     bgClass: {
-      dark: 'bg-red-600/90',
-      light: 'bg-red-500/90'
+      dark: 'bg-error-600/90',
+      light: 'bg-error-500/90'
     },
     borderClass: {
-      dark: 'border-red-500/50',
-      light: 'border-red-400/50'
+      dark: 'border-error-500/50',
+      light: 'border-error-400/50'
     },
     iconColor: {
-      dark: 'text-red-300',
-      light: 'text-red-600'
+      dark: 'text-error-300',
+      light: 'text-error-600'
     }
   },
   warning: {
     icon: AlertCircle,
     bgClass: {
-      dark: 'bg-orange-600/90',
-      light: 'bg-orange-500/90'
+      dark: 'bg-warning-600/90',
+      light: 'bg-warning-500/90'
     },
     borderClass: {
-      dark: 'border-orange-500/50',
-      light: 'border-orange-400/50'
+      dark: 'border-warning-500/50',
+      light: 'border-warning-400/50'
     },
     iconColor: {
-      dark: 'text-orange-300',
-      light: 'text-orange-600'
+      dark: 'text-warning-300',
+      light: 'text-warning-600'
     }
   },
   info: {
     icon: Info,
     bgClass: {
-      dark: 'bg-blue-600/90',
-      light: 'bg-blue-500/90'
+      dark: 'bg-primary-600/90',
+      light: 'bg-primary-500/90'
     },
     borderClass: {
-      dark: 'border-blue-500/50',
-      light: 'border-blue-400/50'
+      dark: 'border-primary-500/50',
+      light: 'border-primary-400/50'
     },
     iconColor: {
-      dark: 'text-blue-300',
-      light: 'text-blue-600'
+      dark: 'text-primary-300',
+      light: 'text-primary-600'
     }
   }
 };
@@ -93,22 +93,18 @@ const Toast = ({
   const IconComponent = toastConfig.icon;
   
   // Classes dynamiques basées sur le thème
-  const getTextColorClass = (isPrimary) => isDarkMode ? 
-    (isPrimary ? 'text-white' : 'text-gray-200') : 
-    (isPrimary ? 'text-gray-900' : 'text-gray-700');
+  const getTextColorClass = (isPrimary) => isPrimary ? 'text-text-main' : 'text-text-muted';
   
   const getBackgroundClass = () => {
     if (priority === 'critical') {
-      return isDarkMode ? 'bg-red-900/95' : 'bg-red-100/95';
+      return isDarkMode ? 'bg-error-900/95' : 'bg-error-100/95';
     }
-    return isDarkMode ? 
-      'bg-gray-800/95' : 
-      'bg-white/95';
+    return 'bg-card/95';
   };
   
   const getBorderClass = () => {
     if (priority === 'critical') {
-      return 'border-red-500';
+      return 'border-error-500';
     }
     return toastConfig.borderClass[currentTheme];
   };
@@ -116,9 +112,9 @@ const Toast = ({
   const getPriorityIndicator = () => {
     switch (priority) {
       case 'critical':
-        return 'border-l-4 border-red-500';
+        return 'border-l-4 border-error-500';
       case 'high':
-        return 'border-l-4 border-orange-500';
+        return 'border-l-4 border-warning-500';
       default:
         return 'border-l-4 border-transparent';
     }
@@ -169,12 +165,12 @@ const Toast = ({
           ${getBackgroundClass()} 
           ${getBorderClass()}
           p-4 relative
-          ${priority === 'critical' ? 'ring-2 ring-red-500' : ''}
+          ${priority === 'critical' ? 'ring-2 ring-error-500' : ''}
         `}
         style={{
           backdropFilter: 'blur(10px)',
           boxShadow: priority === 'critical' ? 
-            '0 20px 25px -5px rgba(239, 68, 68, 0.3), 0 10px 10px -5px rgba(239, 68, 68, 0.1)' :
+            `0 20px 25px -5px rgb(var(--color-error) / 0.3), 0 10px 10px -5px rgb(var(--color-error) / 0.1)` :
             '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
         }}
       >
@@ -193,7 +189,7 @@ const Toast = ({
                   {title}
                 </h3>
                 {priority === 'critical' && (
-                  <span className="text-xs px-2 py-1 bg-red-500 text-white rounded-full">
+                  <span className="text-xs px-2 py-1 bg-error-500 text-white rounded-full">
                     CRITIQUE
                   </span>
                 )}
@@ -209,7 +205,7 @@ const Toast = ({
               <div className="flex items-center space-x-2">
                 {category !== 'general' && (
                   <span className={`text-xs px-2 py-1 rounded ${
-                    isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'
+                    isDarkMode ? 'bg-secondary-700 text-secondary-300' : 'bg-secondary-200 text-secondary-600'
                   }`}>
                     {category}
                   </span>
@@ -221,7 +217,7 @@ const Toast = ({
                 <button
                   onClick={handleClose}
                   className={`p-1 rounded hover:bg-opacity-20 ${
-                    isDarkMode ? 'hover:bg-white' : 'hover:bg-black'
+                    isDarkMode ? 'hover:bg-secondary-100' : 'hover:bg-secondary-800'
                   } transition-colors`}
                   title="Fermer"
                 >
@@ -236,8 +232,8 @@ const Toast = ({
                 onClick={handleAction}
                 className={`mt-3 px-3 py-1 rounded transition-colors ${
                   isDarkMode 
-                    ? 'bg-white bg-opacity-20 hover:bg-opacity-30 text-white' 
-                    : 'bg-black bg-opacity-10 hover:bg-opacity-20 text-gray-900'
+                    ? 'bg-secondary-100 bg-opacity-20 hover:bg-opacity-30 text-text-main' 
+                    : 'bg-secondary-800 bg-opacity-10 hover:bg-opacity-20 text-text-main'
                 } text-sm`}
               >
                 {actionText}
@@ -248,7 +244,7 @@ const Toast = ({
           <button 
             onClick={handleClose}
             className={`flex-shrink-0 ml-2 p-1 rounded hover:bg-opacity-20 ${
-              isDarkMode ? 'hover:bg-white' : 'hover:bg-black'
+              isDarkMode ? 'hover:bg-secondary-100' : 'hover:bg-secondary-800'
             } transition-colors`}
             aria-label="Fermer"
           >

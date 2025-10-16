@@ -6,7 +6,7 @@ const OptimizedImage = ({
   className = '', 
   style = {}, 
   placeholder = true,
-  placeholderColor = '#8b5cf6',
+  placeholderColor = '#0EA5E9',
   ...props 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);

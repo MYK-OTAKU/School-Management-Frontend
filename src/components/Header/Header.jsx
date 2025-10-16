@@ -19,6 +19,15 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
 
   const isDarkMode = effectiveTheme === 'dark';
   const notificationStats = getNotificationStats();
+  const headerBackground = isDarkMode
+    ? 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9))'
+    : 'linear-gradient(135deg, rgba(249, 250, 251, 0.95), rgba(241, 245, 249, 0.92))';
+  const iconButtonPalette = isDarkMode
+    ? 'text-[color:var(--text-secondary)] hover:bg-primary-500/15 focus:ring-primary-500/30'
+    : 'text-[color:var(--text-primary)] hover:bg-accent-500/15 focus:ring-primary-500/25';
+  const userMenuPalette = isDarkMode
+    ? 'text-[color:var(--text-primary)] hover:bg-primary-500/10'
+    : 'text-[color:var(--text-primary)] hover:bg-accent-500/10';
 
   // ✅ Extraction sécurisée des données utilisateur
   const userData = user?.data || user || {};
@@ -72,27 +81,28 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
 
   return (
     <header 
-      className="flex items-center justify-between px-4 py-2 border-b border-purple-400/20 relative z-20"
+      className="flex items-center justify-between px-4 py-2 border-b relative z-20"
       style={{
-        background: 'rgba(30, 41, 59, 0.9)',
-        backdropFilter: 'blur(15px)',
+        background: headerBackground,
+        backdropFilter: 'blur(18px)',
         height: '60px',
         minHeight: '60px',
-        maxHeight: '80px'
+        maxHeight: '80px',
+        borderColor: 'var(--border-color)'
       }}
     >
       {/* Logo et toggle sidebar */}
       <div className="flex items-center space-x-3">
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-lg text-gray-300 hover:bg-purple-600/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400/50"
+          className={`p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 ${iconButtonPalette}`}
           aria-label={sidebarExpanded ? getTranslation('common.closeMenu', 'Fermer le menu') : getTranslation('common.openMenu', 'Ouvrir le menu')}
         >
           {sidebarExpanded ? <X size={20} /> : <Menu size={20} />}
         </button>
         
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-r from-[var(--accent-color-primary)] via-[var(--accent-color-secondary)] to-[var(--accent-color-tertiary)] flex items-center justify-center shadow-lg">
             <img 
               src="/MalianDevs-logo.jpg" 
               alt={getTranslation('header.logoAlt', "MalianDevs Template Logo")} 
@@ -110,10 +120,10 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
             </span>
           </div>
           <div>
-            <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 hover:scale-105">
+            <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--accent-color-primary)] via-[var(--accent-color-secondary)] to-[var(--accent-color-tertiary)] transition-all duration-300 hover:scale-105">
               {renderTitle()}
             </h1>
-            <p className="text-xs text-gray-400 hidden sm:block transition-colors duration-300">
+            <p className="text-xs hidden sm:block transition-colors duration-300 text-[color:var(--text-secondary)]">
               {getTranslation('header.subtitle', 'Système de Gestion')}
             </p>
           </div>
@@ -129,7 +139,7 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
               setShowNotifications(!showNotifications);
               setShowUserMenu(false);
             }}
-            className="relative p-2 rounded-lg text-gray-300 hover:bg-purple-600/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400/50"
+            className={`relative p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 ${iconButtonPalette}`}
             aria-label={getTranslation('notifications.title', "Notifications")}
           >
             <Bell size={20} />
@@ -155,19 +165,19 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
               setShowUserMenu(!showUserMenu);
               setShowNotifications(false);
             }}
-            className="flex items-center space-x-2 p-2 rounded-lg text-gray-300 hover:bg-purple-600/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400/50"
+            className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 ${iconButtonPalette}`}
             aria-label={getTranslation('common.userMenu', "Menu utilisateur")}
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-110">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[var(--accent-color-primary)] via-[var(--accent-color-secondary)] to-[var(--accent-color-tertiary)] flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-110">
               <span className="text-white font-semibold text-sm">
                 {initials}
               </span>
             </div>
             <div className="hidden md:block text-left">
-              <p className="font-medium text-sm text-gray-300 transition-colors duration-300">
+              <p className="font-medium text-sm transition-colors duration-300 text-[color:var(--text-primary)]">
                 {userNameDisplay}
               </p>
-              <p className="text-gray-400 text-xs transition-colors duration-300">
+              <p className="text-xs transition-colors duration-300 text-[color:var(--text-secondary)]">
                 {userData?.role?.name || getTranslation('common.roleNotDefined', 'Rôle non défini')}
               </p>
             </div>
@@ -175,36 +185,37 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
 
           {showUserMenu && (
             <div 
-              className="absolute right-0 mt-2 w-48 rounded-lg shadow-xl border border-purple-400/20 z-50 transform transition-all duration-200 ease-out"
+              className="absolute right-0 mt-2 w-48 rounded-lg shadow-xl border z-50 transform transition-all duration-200 ease-out"
               style={{
-                background: 'rgba(30, 41, 59, 0.95)',
-                backdropFilter: 'blur(15px)',
+                background: 'var(--background-card)',
+                borderColor: 'var(--border-color)',
+                backdropFilter: 'blur(18px)',
                 animation: 'slideIn 0.2s ease-out'
               }}
             >
               <div className="py-2">
-                <div className="px-4 py-3 border-b border-gray-600/30 md:hidden">
-                  <p className="font-medium text-sm text-gray-300">
+                <div className="px-4 py-3 border-b md:hidden" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="font-medium text-sm text-[color:var(--text-primary)]">
                     {userNameDisplay}
                   </p>
-                  <p className="text-gray-400 text-xs">
+                  <p className="text-xs text-[color:var(--text-secondary)]">
                     {userData?.role?.name || getTranslation('common.roleNotDefined', 'Rôle non défini')}
                   </p>
                 </div>
 
                 <button
                   onClick={handleSettingsClick}
-                  className="flex items-center space-x-3 w-full px-4 py-3 text-gray-300 hover:bg-purple-600/20 transition-all duration-200 text-left"
+                  className={`flex items-center space-x-3 w-full px-4 py-3 transition-all duration-200 text-left ${userMenuPalette}`}
                 >
                   <Settings size={16} />
                   <span>{getTranslation('settings.profileSettings', 'Paramètres')}</span>
                 </button>
                 
-                <div className="border-t border-gray-600/30 my-1"></div>
+                <div className="border-t my-1" style={{ borderColor: 'var(--border-color)' }}></div>
                 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-3 w-full px-4 py-3 text-red-300 hover:bg-red-600/20 transition-all duration-200 text-left"
+                  className={`flex items-center space-x-3 w-full px-4 py-3 text-left transition-all duration-200 ${isDarkMode ? 'text-error-200 hover:bg-error-500/10' : 'text-error-500 hover:bg-error-100'}`}
                 >
                   <LogOut size={16} />
                   <span>{getTranslation('auth.logout', 'Déconnexion')}</span>

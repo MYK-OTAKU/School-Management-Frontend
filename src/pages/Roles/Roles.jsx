@@ -10,7 +10,6 @@ import ConfirmationDialog from '../../components/ConfirmationDialog/Confirmation
 
 const Roles = () => {
   const { hasPermission } = useAuth();
-  // ✅ i18n: Utilise getTranslation pour cohérence avec LanguageContext
   const { getTranslation } = useLanguage();
   const { effectiveTheme } = useTheme();
   
@@ -55,9 +54,7 @@ const Roles = () => {
     setConfirmDialog({
       show: true,
       role,
-      // ✅ i18n: Utilise getTranslation pour titre
       title: getTranslation('roles.deleteRole', 'Supprimer le rôle'),
-      // ✅ i18n: Interpolation pour message dynamique
       message: `${getTranslation('roles.deleteRoleConfirmation', 'Êtes-vous sûr de vouloir supprimer définitivement ce rôle')} "${role.name}" ? ${getTranslation('roles.thisActionCannot', 'Cette action est irréversible.')}`
     });
   };
@@ -89,32 +86,19 @@ const Roles = () => {
     setEditingRole(null);
   };
 
-  // Styles dynamiques basés sur le thème
-  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-gray-400') : (isPrimary ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]');
-  const getBorderColorClass = () => isDarkMode ? 'border-purple-400/20' : 'border-[var(--border-color)]';
-  const getAccentColorClass = () => isDarkMode ? 'text-purple-400' : 'text-[var(--accent-color-primary)]';
-  const getButtonBgClass = () => isDarkMode ? 'bg-purple-600' : 'bg-[var(--accent-color-primary)]';
-  const getButtonHoverBgClass = () => isDarkMode ? 'hover:bg-purple-700' : 'hover:opacity-80';
-  const getPurpleAccentColorClass = () => isDarkMode ? 'text-purple-300' : 'text-[var(--accent-color-primary)]';
-  const getPurpleAccentBgClass = () => isDarkMode ? 'bg-purple-600/20' : 'bg-[var(--accent-color-primary)]20';
-  const getRedAccentColorClass = () => isDarkMode ? 'text-red-400' : 'text-[var(--error-color)]';
-  const getRedAccentBgClass = () => isDarkMode ? 'hover:bg-red-600/20' : 'hover:bg-[var(--error-color)]20';
-  const getBlueAccentColorClass = () => isDarkMode ? 'text-blue-400' : 'text-[var(--accent-color-secondary)]';
-  const getBlueAccentBgClass = () => isDarkMode ? 'hover:bg-blue-600/20' : 'hover:bg-[var(--accent-color-secondary)]20';
-
   if (!canViewRoles) {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className="text-3xl font-bold text-text-main">
             {getTranslation('roles.title', 'Gestion des Rôles')}
           </h1>
         </div>
         <div className="text-center py-12">
-          <div className={`${getTextColorClass(false)} text-lg mb-4`}>
+          <div className="text-text-muted text-lg mb-4">
             {getTranslation('roles.accessDenied', 'Accès refusé')}
           </div>
-          <div className={getTextColorClass(false)}>
+          <div className="text-text-muted">
             {getTranslation('roles.noAccessMessage', 'Vous n\'avez pas les permissions pour accéder à cette page.')}
           </div>
         </div>
@@ -126,12 +110,12 @@ const Roles = () => {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className="text-3xl font-bold text-text-main">
             {getTranslation('roles.title', 'Gestion des Rôles')}
           </h1>
         </div>
         <div className="flex items-center justify-center h-64">
-          <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${isDarkMode ? 'border-purple-600' : 'border-[var(--accent-color-primary)]'}`}></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
         </div>
       </div>
     );
@@ -141,15 +125,15 @@ const Roles = () => {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className="text-3xl font-bold text-text-main">
             {getTranslation('roles.title', 'Gestion des Rôles')}
           </h1>
         </div>
         <div className="text-center py-12">
-          <div className={`${getTextColorClass(false)} text-lg mb-4`}>
+          <div className="text-text-muted text-lg mb-4">
             {getTranslation('roles.errorLoadingRoles', 'Erreur lors du chargement des rôles')}
           </div>
-          <div className={getTextColorClass(false)}>
+          <div className="text-text-muted">
             {error.message || getTranslation('common.unknownError', 'Une erreur est survenue')}
           </div>
         </div>
@@ -162,8 +146,8 @@ const Roles = () => {
       {/* En-tête */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Shield className={`h-8 w-8 ${getAccentColorClass()}`} />
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <Shield className="h-8 w-8 text-primary-400" />
+          <h1 className="text-3xl font-bold text-text-main">
             {getTranslation('roles.title', 'Gestion des Rôles')}
           </h1>
         </div>
@@ -171,7 +155,7 @@ const Roles = () => {
         {canManageRoles && (
           <button
             onClick={handleCreateRole}
-            className={`flex items-center space-x-2 px-4 py-2 ${getButtonBgClass()} text-white rounded-lg ${getButtonHoverBgClass()} transition-colors disabled:opacity-50`}
+            className="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
             disabled={showRoleForm}
           >
             <Plus size={16} />
@@ -185,20 +169,16 @@ const Roles = () => {
         {roles?.map(role => (
           <div
             key={role.id}
-            className={`rounded-lg border ${getBorderColorClass()} p-6`}
-            style={{
-              background: 'var(--background-card)', // Utilise la variable CSS
-              backdropFilter: 'blur(10px)'
-            }}
+            className="rounded-lg border border-primary-400/20 p-6 bg-card backdrop-blur-sm"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-3">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-r from-purple-500 to-blue-500' : 'bg-gradient-to-r from-[var(--accent-color-primary)] to-[var(--accent-color-secondary)]'}`}>
+                <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-primary-500 to-accent-500">
                   <Shield className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className={`text-lg font-semibold ${getTextColorClass(true)}`}>{role.name}</h3>
-                  <p className={`text-sm ${getTextColorClass(false)}`}>{role.description}</p>
+                  <h3 className="text-lg font-semibold text-text-main">{role.name}</h3>
+                  <p className="text-sm text-text-muted">{role.description}</p>
                 </div>
               </div>
               
@@ -206,8 +186,7 @@ const Roles = () => {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => handleEditRole(role)}
-                    className={`p-2 ${getBlueAccentColorClass()} ${getBlueAccentBgClass()} rounded-lg transition-colors`}
-                    // ✅ i18n: Tooltip traduit
+                    className="p-2 text-accent-400 hover:bg-accent-600/20 rounded-lg transition-colors"
                     title={getTranslation('common.edit', 'Modifier')}
                     disabled={showRoleForm}
                   >
@@ -215,8 +194,7 @@ const Roles = () => {
                   </button>
                   <button
                     onClick={() => handleDeleteRole(role)}
-                    className={`p-2 ${getRedAccentColorClass()} ${getRedAccentBgClass()} rounded-lg transition-colors`}
-                    // ✅ i18n: Tooltip traduit
+                    className="p-2 text-error-400 hover:bg-error-600/20 rounded-lg transition-colors"
                     title={getTranslation('common.delete', 'Supprimer')}
                     disabled={deleteRoleMutation.isLoading}
                   >
@@ -229,21 +207,21 @@ const Roles = () => {
             {/* Statistiques du rôle */}
             <div className="space-y-3">
               <div className="flex items-center justify-between text-sm">
-                <span className={`flex items-center space-x-2 ${getTextColorClass(false)}`}>
+                <span className="flex items-center space-x-2 text-text-muted">
                   <Users size={14} />
                   <span>{getTranslation('roles.usersStat', 'Utilisateurs')}</span>
                 </span>
-                <span className={`font-medium ${getTextColorClass(true)}`}>
+                <span className="font-medium text-text-main">
                   {role.userCount || 0}
                 </span>
               </div>
               
               <div className="flex items-center justify-between text-sm">
-                <span className={`flex items-center space-x-2 ${getTextColorClass(false)}`}>
+                <span className="flex items-center space-x-2 text-text-muted">
                   <Key size={14} />
                   <span>{getTranslation('roles.permissionsStat', 'Permissions')}</span>
                 </span>
-                <span className={`font-medium ${getTextColorClass(true)}`}>
+                <span className="font-medium text-text-main">
                   {role.permissions?.length || 0}
                 </span>
               </div>
@@ -252,20 +230,20 @@ const Roles = () => {
             {/* Aperçu des permissions */}
             {role.permissions && role.permissions.length > 0 && (
               <div className="mt-4">
-                <div className={`text-xs mb-2 ${getTextColorClass(false)}`}>
+                <div className="text-xs mb-2 text-text-muted">
                   {getTranslation('roles.mainPermissions', 'Permissions principales')}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {role.permissions.slice(0, 3).map(permission => (
                     <span
                       key={permission.id}
-                      className={`inline-block px-2 py-1 text-xs rounded ${getPurpleAccentBgClass()} ${getPurpleAccentColorClass()}`}
+                      className="inline-block px-2 py-1 text-xs rounded bg-primary-600/20 text-primary-300"
                     >
                       {getTranslation(`permissions.permissionNames.${permission.name}`, permission.name)}
                     </span>
                   ))}
                   {role.permissions.length > 3 && (
-                    <span className={`inline-block px-2 py-1 text-xs rounded ${isDarkMode ? 'bg-gray-600/20 text-gray-400' : 'bg-[var(--text-secondary)]20 text-[var(--text-secondary)]'}`}>
+                    <span className="inline-block px-2 py-1 text-xs rounded bg-secondary-600/20 text-secondary-400">
                       +{role.permissions.length - 3} {getTranslation('roles.others', 'autres')}
                     </span>
                   )}
@@ -279,11 +257,11 @@ const Roles = () => {
       {/* Message si aucun rôle */}
       {(!roles || roles.length === 0) && (
         <div className="text-center py-12">
-          <Shield className={`h-12 w-12 ${getTextColorClass(false)} mx-auto mb-4`} />
-          <p className={`${getTextColorClass(false)} text-lg`}>
+          <Shield className="h-12 w-12 text-text-muted mx-auto mb-4" />
+          <p className="text-text-muted text-lg">
             {getTranslation('roles.noRolesFound', 'Aucun rôle trouvé')}
           </p>
-          <p className={`${getTextColorClass(false)} text-sm`}>
+          <p className="text-text-muted text-sm">
             {getTranslation('roles.startByCreatingRole', 'Commencez par créer un rôle')}
           </p>
         </div>
@@ -305,7 +283,6 @@ const Roles = () => {
         message={confirmDialog.message}
         onConfirm={confirmDeleteRole}
         onCancel={cancelDeleteRole}
-        // ✅ i18n: Textes de boutons traduits
         confirmText={getTranslation('common.delete', 'Supprimer')}
         cancelText={getTranslation('common.cancel', 'Annuler')}
         type="danger"

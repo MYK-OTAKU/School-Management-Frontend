@@ -1,14 +1,14 @@
 import React from 'react';
 
 const variantClasses = {
-  primary: 'bg-purple-600 hover:bg-purple-700 text-white shadow-sm',
-  secondary: 'bg-gray-500 hover:bg-gray-600 text-white shadow-sm',
-  success: 'bg-green-600 hover:bg-green-700 text-white shadow-sm',
-  danger: 'bg-red-600 hover:bg-red-700 text-white shadow-sm',
-  warning: 'bg-yellow-500 hover:bg-yellow-600 text-white shadow-sm',
-  info: 'bg-blue-500 hover:bg-blue-600 text-white shadow-sm',
-  outline: 'bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700',
-  ghost: 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+  primary: 'bg-primary-600 hover:bg-primary-700 text-white shadow-sm',
+  secondary: 'bg-secondary-500 hover:bg-secondary-600 text-white shadow-sm',
+  success: 'bg-success-600 hover:bg-success-700 text-white shadow-sm',
+  danger: 'bg-error-600 hover:bg-error-700 text-white shadow-sm',
+  warning: 'bg-warning-500 hover:bg-warning-600 text-white shadow-sm',
+  info: 'bg-accent-500 hover:bg-accent-600 text-white shadow-sm',
+  outline: 'bg-transparent border border-secondary-300 dark:border-secondary-600 text-text-main hover:bg-secondary-50 dark:hover:bg-secondary-700',
+  ghost: 'bg-transparent text-text-main hover:bg-secondary-100 dark:hover:bg-secondary-800'
 };
 
 const sizeClasses = {

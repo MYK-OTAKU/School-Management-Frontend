@@ -55,12 +55,12 @@ const SplashScreen = ({ controlled = false, fadeOut = false, maxDuration = 3000 
         position: 'fixed',
         top: 0,
         left: 0,
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%)',
+        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 35%, #3B82F6 100%)',
       }}
     >
       {/* Logo avec animation améliorée */}
       <div className="w-28 h-28 mb-8 animate-pulse" style={{ 
-        filter: 'drop-shadow(0 0 15px rgba(139, 92, 246, 0.8))',
+        filter: 'drop-shadow(0 0 15px rgba(14, 165, 233, 0.65))',
         animation: 'pulse 2s infinite'
       }}>
         <OptimizedImage 
@@ -68,16 +68,16 @@ const SplashScreen = ({ controlled = false, fadeOut = false, maxDuration = 3000 
           alt="MalianDevs Template Logo" 
           className="w-full h-full object-contain" 
           placeholder={true}
-          placeholderColor="#8b5cf6"
+          placeholderColor="#0EA5E9"
         />
       </div>
       
-      <h1 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+      <h1 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-400">
         MalianDevs Template
       </h1>
       
       <div className="mt-6">
-        <div className="w-14 h-14 rounded-full border-4 border-t-purple-500 border-r-purple-400 border-b-purple-300 border-l-purple-200 animate-spin"></div>
+        <div className="w-14 h-14 rounded-full border-4 border-t-primary-500 border-r-accent-400 border-b-secondary-300 border-l-secondary-200 animate-spin"></div>
       </div>
     </div>
   );

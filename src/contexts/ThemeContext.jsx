@@ -119,37 +119,39 @@ export const ThemeProvider = ({ children }) => {
     
     // Couleurs pour le thème sombre (existantes)
     if (appliedTheme === 'dark') {
-      root.style.setProperty('--background-primary', 'rgba(15, 23, 42, 0.95)'); // Presque noir
-      root.style.setProperty('--background-secondary', 'rgba(30, 41, 59, 0.8)'); // Gris foncé
-      root.style.setProperty('--background-card', 'rgba(30, 41, 59, 0.6)'); // Fond des cartes
-      root.style.setProperty('--background-input', 'rgba(30, 41, 59, 0.5)'); // Fond des inputs
-      root.style.setProperty('--text-primary', '#ffffff'); // Texte principal blanc
-      root.style.setProperty('--text-secondary', '#94a3b8'); // Texte secondaire gris bleu
-      root.style.setProperty('--border-color', 'rgba(168, 85, 247, 0.2)'); // Bordure violette légère
-      root.style.setProperty('--accent-color-primary', '#8b5cf6'); // Violet (pour les icônes, boutons)
-      root.style.setProperty('--accent-color-secondary', '#3b82f6'); // Bleu (pour les icônes, boutons)
-      root.style.setProperty('--success-color', '#22c55e'); // Vert
-      root.style.setProperty('--error-color', '#ef4444'); // Rouge
-      root.style.setProperty('--warning-color', '#f59e0b'); // Jaune
-      // Nouvelle variable pour les fonds de modales (sombre)
-      root.style.setProperty('--background-modal-card', 'rgba(30, 41, 59, 0.95)'); 
-    } 
-    // Nouvelles couleurs pour le thème clair (frais et doux)
-    else {
-      root.style.setProperty('--background-primary', 'rgba(240, 248, 255, 0.95)'); // Bleu très clair, presque blanc (AliceBlue)
-      root.style.setProperty('--background-secondary', 'rgba(224, 236, 255, 0.8)'); // Bleu plus doux
-      root.style.setProperty('--background-card', 'rgba(240, 255, 255, 0.95)'); // Fond des cartes blanc translucide
-      root.style.setProperty('--background-input', 'rgba(240, 255, 255, 0.95)'); // Fond des inputs blanc
-      root.style.setProperty('--text-primary', '#1a202c'); // Texte principal gris très foncé
-      root.style.setProperty('--text-secondary', '#4a5568'); // Texte secondaire gris moyen
-      root.style.setProperty('--border-color', 'rgba(59, 130, 246, 0.3)'); // Bordure bleue légère
-      root.style.setProperty('--accent-color-primary', '#3b82f6'); // Bleu (pour les icônes, boutons)
-      root.style.setProperty('--accent-color-secondary', '#6366f1'); // Indigo (pour les icônes, boutons)
-      root.style.setProperty('--success-color', '#10b981'); // Vert émeraude
-      root.style.setProperty('--error-color', '#dc2626'); // Rouge
-      root.style.setProperty('--warning-color', '#d97706'); // Orange
-      // Nouvelle variable pour les fonds de modales (blanc pur)
-      root.style.setProperty('--background-modal-card', 'rgba(255, 255, 255, 1)'); 
+      root.style.setProperty('--background-primary', '#0f1828');
+      root.style.setProperty('--background-secondary', '#1b2a44');
+      root.style.setProperty('--background-card', 'rgba(27, 42, 68, 0.92)');
+      root.style.setProperty('--background-input', 'rgba(33, 52, 86, 0.88)');
+      root.style.setProperty('--background-modal-card', 'rgba(18, 34, 58, 0.96)');
+      root.style.setProperty('--background-gradient', 'linear-gradient(135deg, #0f1828 0%, #1b2a44 52%, #26416b 100%)');
+      root.style.setProperty('--sidebar-background', 'linear-gradient(180deg, rgba(15, 24, 40, 0.98), rgba(33, 52, 86, 0.9))');
+      root.style.setProperty('--text-primary', '#e2e8f0');
+      root.style.setProperty('--text-secondary', '#94a3b8');
+      root.style.setProperty('--border-color', 'rgba(90, 126, 189, 0.35)');
+      root.style.setProperty('--accent-color-primary', '#3a7bd5');
+      root.style.setProperty('--accent-color-secondary', '#f7b046');
+      root.style.setProperty('--accent-color-tertiary', '#59c3c3');
+      root.style.setProperty('--success-color', '#5ed1b6');
+      root.style.setProperty('--error-color', '#f8927e');
+      root.style.setProperty('--warning-color', '#fcd34d');
+    } else {
+      root.style.setProperty('--background-primary', '#fdf6ec');
+      root.style.setProperty('--background-secondary', '#f3e4c8');
+      root.style.setProperty('--background-card', 'rgba(255, 255, 255, 0.94)');
+      root.style.setProperty('--background-input', 'rgba(255, 255, 255, 0.96)');
+      root.style.setProperty('--background-modal-card', 'rgba(255, 255, 255, 0.98)');
+      root.style.setProperty('--background-gradient', 'linear-gradient(135deg, #fdf6ec 0%, #f1e1c0 50%, #fde4c2 100%)');
+      root.style.setProperty('--sidebar-background', 'linear-gradient(180deg, rgba(253, 246, 236, 0.96), rgba(241, 225, 192, 0.88))');
+      root.style.setProperty('--text-primary', '#1e293b');
+      root.style.setProperty('--text-secondary', '#475569');
+      root.style.setProperty('--border-color', 'rgba(29, 79, 145, 0.25)');
+      root.style.setProperty('--accent-color-primary', '#1d4f91');
+      root.style.setProperty('--accent-color-secondary', '#f68b1f');
+      root.style.setProperty('--accent-color-tertiary', '#38a169');
+      root.style.setProperty('--success-color', '#38a169');
+      root.style.setProperty('--error-color', '#d64545');
+      root.style.setProperty('--warning-color', '#f59e0b');
     }
   };
 

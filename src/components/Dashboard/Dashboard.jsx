@@ -67,17 +67,15 @@ const Dashboard = () => {
   });
 
   // Styles dynamiques harmonisés pour le fond du dashboard
-  const dashboardBackground = isDarkMode
-    ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%)'
-    : 'linear-gradient(135deg, #e0f2f7 0%, #e0f7fa 25%, #e0f9fd 50%, #e0faff 75%, #e0faff 100%)'; // Couleurs plus douces pour le thème clair
+  const dashboardBackground = 'var(--background-gradient)';
 
   // Le fond du main content sera transparent, les pages géreront leur propre fond
   const mainContentBg = 'transparent'; 
   const mainContentBackdropFilter = 'none'; 
 
   // Styles pour les éléments décoratifs adaptés au thème
-  const decorativeElementsOpacity = isDarkMode ? 0.05 : 0.03;
-  const gridOpacity = isDarkMode ? 0.05 : 0.02;
+  const decorativeElementsOpacity = isDarkMode ? 0.08 : 0.05;
+  const gridOpacity = isDarkMode ? 0.06 : 0.04;
 
   return (
     <div 
@@ -92,14 +90,10 @@ const Dashboard = () => {
         className="absolute inset-0 pointer-events-none transition-opacity duration-500"
         style={{
           opacity: decorativeElementsOpacity,
-          backgroundImage: isDarkMode ? `
-            radial-gradient(circle at 10% 20%, #6366f1 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, #8b5cf6 0%, transparent 50%),
-            radial-gradient(circle at 30% 60%, #ec4899 0%, transparent 50%)
-          ` : `
-            radial-gradient(circle at 10% 20%, #81d4fa 0%, transparent 50%), /* Bleu clair */
-            radial-gradient(circle at 90% 80%, #4fc3f7 0%, transparent 50%), /* Bleu ciel */
-            radial-gradient(circle at 30% 60%, #29b6f6 0%, transparent 50%)  /* Bleu plus vif */
+          backgroundImage: `
+            radial-gradient(circle at 12% 18%, var(--accent-color-primary) 0%, transparent 55%),
+            radial-gradient(circle at 82% 84%, var(--accent-color-secondary) 0%, transparent 55%),
+            radial-gradient(circle at 32% 58%, var(--accent-color-tertiary) 0%, transparent 58%)
           `
         }}
       />
@@ -110,11 +104,11 @@ const Dashboard = () => {
         style={{
           opacity: gridOpacity,
           backgroundImage: isDarkMode ? `
-            linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(90, 126, 189, 0.11) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(89, 195, 195, 0.1) 1px, transparent 1px)
           ` : `
-            linear-gradient(rgba(0, 188, 212, 0.1) 1px, transparent 1px), /* Cyan clair */
-            linear-gradient(90deg, rgba(0, 188, 212, 0.1) 1px, transparent 1px)
+            linear-gradient(rgba(29, 79, 145, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(246, 139, 31, 0.08) 1px, transparent 1px)
           `,
           backgroundSize: '100px 100px'
         }}

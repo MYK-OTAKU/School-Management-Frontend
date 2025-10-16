@@ -19,11 +19,13 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { user, hasPermission } = useAuth();
   const { getTranslation } = useLanguage();
+  const { effectiveTheme } = useTheme();
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -108,6 +110,20 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
   ];
 
   const shouldExpandVisual = expanded || (!isMobile && isHovered);
+  const isDarkMode = effectiveTheme === 'dark';
+
+  const sidebarBackground = 'var(--sidebar-background)';
+  const sidebarBorderColor = 'var(--border-color)';
+  const baseLinkStyle = { color: 'var(--text-secondary)', backgroundColor: 'transparent' };
+  const activeLinkStyle = {
+    color: '#fff',
+    backgroundColor: 'var(--accent-color-primary)',
+    boxShadow: isDarkMode
+      ? '0 10px 24px rgba(58, 123, 213, 0.35)'
+      : '0 10px 24px rgba(29, 79, 145, 0.28)'
+  };
+  const hoverClass = isDarkMode ? 'hover:bg-[rgba(58,123,213,0.12)]' : 'hover:bg-[rgba(29,79,145,0.12)]';
+  const adminTitleColor = isDarkMode ? 'text-[color:var(--accent-color-secondary)]' : 'text-[color:var(--accent-color-primary)]';
 
   const handleNavigation = (e, path) => {
     e.preventDefault();
@@ -121,14 +137,6 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
   };
 
   // Styles fixes pour le sidebar (toujours thème sombre)
-  const sidebarBg = 'rgba(30, 41, 59, 0.9)';
-  const sidebarBorder = 'border-purple-400/20';
-  const linkTextColor = 'text-gray-300';
-  const linkHoverBg = 'hover:bg-purple-600/20';
-  const linkActiveBg = 'bg-purple-600/80 text-white shadow-lg';
-  const adminSectionBorder = 'border-purple-400/20';
-  const adminSectionTitleColor = 'text-gray-400';
-
   return (
     <>
       <aside
@@ -142,11 +150,12 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
           flex flex-col
           overflow-y-auto
           overflow-x-hidden
-          border-r ${sidebarBorder}
+          border-r
         `}
         style={{
-          background: sidebarBg,
-          backdropFilter: 'blur(15px)'
+          background: sidebarBackground,
+          backdropFilter: 'blur(15px)',
+          borderColor: sidebarBorderColor
         }}
         onMouseEnter={() => !isMobile && !expanded && setIsHovered(true)}
         onMouseLeave={() => !isMobile && !expanded && setIsHovered(false)}
@@ -164,12 +173,13 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
                       flex items-center py-3 px-3 rounded-lg
                       ${location.pathname === item.path || 
                         (location.pathname === '/dashboard' && item.path === '/dashboard') ? 
-                        linkActiveBg : 
-                        `${linkTextColor} ${linkHoverBg}`}
+                        'shadow-lg' : 
+                        `${hoverClass}`}
                       transition-all duration-200
                       ${!shouldExpandVisual && 'justify-center'}
                     `}
                     title={!shouldExpandVisual ? item.label : ''}
+                    style={location.pathname === item.path || (location.pathname === '/dashboard' && item.path === '/dashboard') ? activeLinkStyle : baseLinkStyle}
                     onClick={(e) => handleNavigation(e, item.path)}
                   >
                     <span className="flex-shrink-0">{item.icon}</span>
@@ -184,12 +194,12 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
           {adminMenuItems.length > 0 && (
             <>
               <div className="mx-3 my-4">
-                <div className={`border-t ${adminSectionBorder}`}></div>
+                <div className="border-t" style={{ borderColor: sidebarBorderColor }}></div>
               </div>
               
               <div className="px-3">
                 {shouldExpandVisual && (
-                  <h3 className={`${adminSectionTitleColor} font-semibold text-xs uppercase tracking-wider mb-3 px-3`}>
+                  <h3 className={`${adminTitleColor} font-semibold text-xs uppercase tracking-wider mb-3 px-3`}>
                     {getTranslation('navigation.administration', 'Administration')}
                   </h3>
                 )}
@@ -200,13 +210,12 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
                         to={item.path}
                         className={`
                           flex items-center py-3 px-3 rounded-lg
-                          ${location.pathname === item.path ? 
-                            linkActiveBg : 
-                            `${linkTextColor} ${linkHoverBg}`}
+                          ${location.pathname === item.path ? 'shadow-lg' : `${hoverClass}`}
                           transition-all duration-200
                           ${!shouldExpandVisual && 'justify-center'}
                         `}
                         title={!shouldExpandVisual ? item.label : ''}
+                        style={location.pathname === item.path ? activeLinkStyle : baseLinkStyle}
                         onClick={(e) => handleNavigation(e, item.path)}
                       >
                         <span className="flex-shrink-0">{item.icon}</span>

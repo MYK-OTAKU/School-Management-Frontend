@@ -14,20 +14,20 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
     if (product.stock === 0) {
       return {
         label: getTranslation('products.outOfStock', 'Rupture de stock'),
-        color: 'red',
-        bgClass: isDarkMode ? 'bg-red-900/20 text-red-400' : 'bg-red-100 text-red-800'
+        color: 'error',
+        bgClass: isDarkMode ? 'bg-error-900/20 text-error-400' : 'bg-error-100 text-error-800'
       };
     } else if (product.stock < 10) {
       return {
         label: getTranslation('products.lowStock', 'Stock faible'),
-        color: 'orange',
-        bgClass: isDarkMode ? 'bg-orange-900/20 text-orange-400' : 'bg-orange-100 text-orange-800'
+        color: 'warning',
+        bgClass: isDarkMode ? 'bg-warning-900/20 text-warning-400' : 'bg-warning-100 text-warning-800'
       };
     } else {
       return {
         label: getTranslation('products.inStock', 'En stock'),
-        color: 'green',
-        bgClass: isDarkMode ? 'bg-green-900/20 text-green-400' : 'bg-green-100 text-green-800'
+        color: 'success',
+        bgClass: isDarkMode ? 'bg-success-900/20 text-success-400' : 'bg-success-100 text-success-800'
       };
     }
   };
@@ -43,14 +43,9 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
 
   if (viewMode === 'grid') {
     return (
-      <div className={`
-        ${isDarkMode ? 'bg-gray-800' : 'bg-white'} 
-        rounded-lg shadow-md overflow-hidden
-        transition-all duration-100 hover:shadow-xl // Durée réduite pour moins de lag au scroll
-        relative
-      `}>
+      <div className="bg-card rounded-lg shadow-md overflow-hidden transition-all duration-100 hover:shadow-xl relative">
         {/* Image avec lazy loading */}
-        <div className={`h-48 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'} relative`}>
+        <div className="h-48 bg-secondary-200 dark:bg-secondary-700 relative">
           {product.imageUrl ? (
             <img 
               src={product.imageUrl} 
@@ -60,13 +55,13 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <Package size={48} className={isDarkMode ? 'text-gray-600' : 'text-gray-400'} />
+              <Package size={48} className="text-text-muted" />
             </div>
           )}
           
           {/* Status Badge */}
           {!product.isActive && (
-            <div className="absolute top-2 left-2 px-2 py-1 bg-red-600 text-white text-xs rounded">
+            <div className="absolute top-2 left-2 px-2 py-1 bg-error-600 text-white text-xs rounded">
               {getTranslation('products.inactive', 'Inactif')}
             </div>
           )}
@@ -99,32 +94,32 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
           </h3>
 
           {/* Description */}
-          <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} mb-3 line-clamp-2 min-h-[40px]`}>
+          <p className="text-sm text-text-muted mb-3 line-clamp-2 min-h-[40px]">
             {product.description || getTranslation('products.noDescription', 'Aucune description disponible')}
           </p>
 
           {/* Price and Stock */}
           <div className="flex justify-between items-center mb-3">
             <div>
-              <p className="text-xs text-gray-500 mb-1">{getTranslation('products.price', 'Prix')}</p>
-              <p className="text-xl font-bold text-purple-600">{formatPrice(product.price)}</p>
+              <p className="text-xs text-text-muted mb-1">{getTranslation('products.price', 'Prix')}</p>
+              <p className="text-xl font-bold text-primary-600">{formatPrice(product.price)}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-gray-500 mb-1">{getTranslation('products.stock', 'Stock')}</p>
-              <p className={`text-xl font-bold ${stockStatus.color === 'red' ? 'text-red-500' : stockStatus.color === 'orange' ? 'text-orange-500' : 'text-green-500'}`}>
+              <p className="text-xs text-text-muted mb-1">{getTranslation('products.stock', 'Stock')}</p>
+              <p className={`text-xl font-bold ${stockStatus.color === 'error' ? 'text-error-500' : stockStatus.color === 'warning' ? 'text-warning-500' : 'text-success-500'}`}>
                 {product.stock}
               </p>
             </div>
           </div>
 
           {/* Actions */}
-          <div className="flex gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex gap-2 pt-3 border-t border-secondary-200 dark:border-secondary-700">
             <button
               onClick={() => onToggle(product)}
               className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded ${
                 product.isActive
-                  ? isDarkMode ? 'bg-green-900/20 text-green-400 hover:bg-green-900/30' : 'bg-green-100 text-green-700 hover:bg-green-200'
-                  : isDarkMode ? 'bg-gray-700 text-gray-400 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-success-100 text-success-700 hover:bg-success-200 dark:bg-success-900/20 dark:text-success-400 dark:hover:bg-success-900/30'
+                  : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200 dark:bg-secondary-700 dark:text-secondary-400 dark:hover:bg-secondary-600'
               } transition-colors`}
               title={product.isActive ? 'Désactiver' : 'Activer'}
             >
@@ -132,22 +127,14 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
             </button>
             <button
               onClick={() => onEdit(product)}
-              className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded ${
-                isDarkMode 
-                  ? 'bg-blue-900/20 text-blue-400 hover:bg-blue-900/30' 
-                  : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-              } transition-colors`}
+              className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded bg-primary-100 text-primary-700 hover:bg-primary-200 dark:bg-primary-900/20 dark:text-primary-400 dark:hover:bg-primary-900/30 transition-colors"
               title={getTranslation('products.edit', 'Modifier')}
             >
               <Edit size={16} />
             </button>
             <button
               onClick={() => onDelete(product)}
-              className={`flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded ${
-                isDarkMode 
-                  ? 'bg-red-900/20 text-red-400 hover:bg-red-900/30' 
-                  : 'bg-red-100 text-red-700 hover:bg-red-200'
-              } transition-colors`}
+              className="flex-1 flex items-center justify-center gap-1 px-3 py-2 rounded bg-error-100 text-error-700 hover:bg-error-200 dark:bg-error-900/20 dark:text-error-400 dark:hover:bg-error-900/30 transition-colors"
               title={getTranslation('products.delete', 'Supprimer')}
             >
               <Trash2 size={16} />
@@ -160,15 +147,10 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
 
   // List View (image lazy loading ajouté)
   return (
-    <div className={`
-      ${isDarkMode ? 'bg-gray-800' : 'bg-white'} 
-      rounded-lg shadow-md overflow-hidden
-      transition-all duration-100 hover:shadow-lg // Durée réduite
-      p-4
-    `}>
+    <div className="bg-card rounded-lg shadow-md overflow-hidden transition-all duration-100 hover:shadow-lg p-4">
       <div className="flex items-center gap-4">
         {/* Image */}
-        <div className={`w-20 h-20 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded flex-shrink-0`}>
+        <div className="w-20 h-20 bg-secondary-200 dark:bg-secondary-700 rounded flex-shrink-0">
           {product.imageUrl ? (
             <img 
               src={product.imageUrl} 
@@ -178,7 +160,7 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <Package size={32} className={isDarkMode ? 'text-gray-600' : 'text-gray-400'} />
+              <Package size={32} className="text-text-muted" />
             </div>
           )}
         </div>
@@ -188,9 +170,7 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-lg font-semibold truncate">{product.name}</h3>
             {!product.isActive && (
-              <span className={`px-2 py-0.5 text-xs rounded ${
-                isDarkMode ? 'bg-red-900/20 text-red-400' : 'bg-red-100 text-red-800'
-              }`}>
+              <span className="px-2 py-0.5 text-xs rounded bg-error-100 text-error-800 dark:bg-error-900/20 dark:text-error-400">
                 {getTranslation('products.inactive', 'Inactif')}
               </span>
             )}
@@ -209,25 +189,25 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
             </div>
           )}
           
-          <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} line-clamp-1`}>
+          <p className="text-sm text-text-muted line-clamp-1">
             {product.description || getTranslation('products.noDescription', 'Aucune description disponible')}
           </p>
         </div>
 
         {/* Price */}
         <div className="text-right flex-shrink-0">
-          <p className="text-xs text-gray-500 mb-1">{getTranslation('products.price', 'Prix')}</p>
-          <p className="text-lg font-bold text-purple-600">{formatPrice(product.price)}</p>
+          <p className="text-xs text-text-muted mb-1">{getTranslation('products.price', 'Prix')}</p>
+          <p className="text-lg font-bold text-primary-600">{formatPrice(product.price)}</p>
         </div>
 
         {/* Stock */}
         <div className="text-right flex-shrink-0 w-24">
-          <p className="text-xs text-gray-500 mb-1">{getTranslation('products.stock', 'Stock')}</p>
+          <p className="text-xs text-text-muted mb-1">{getTranslation('products.stock', 'Stock')}</p>
           <div className="flex items-center justify-end gap-2">
             <span className={`text-lg font-bold ${
-              stockStatus.color === 'red' ? 'text-red-500' : 
-              stockStatus.color === 'orange' ? 'text-orange-500' : 
-              'text-green-500'
+              stockStatus.color === 'error' ? 'text-error-500' : 
+              stockStatus.color === 'warning' ? 'text-warning-500' : 
+              'text-success-500'
             }`}>
               {product.stock}
             </span>
@@ -240,8 +220,8 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
             onClick={() => onToggle(product)}
             className={`p-2 rounded ${
               product.isActive
-                ? isDarkMode ? 'bg-green-900/20 text-green-400 hover:bg-green-900/30' : 'bg-green-100 text-green-700 hover:bg-green-200'
-                : isDarkMode ? 'bg-gray-700 text-gray-400 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-success-100 text-success-700 hover:bg-success-200 dark:bg-success-900/20 dark:text-success-400 dark:hover:bg-success-900/30'
+                : 'bg-secondary-100 text-secondary-700 hover:bg-secondary-200 dark:bg-secondary-700 dark:text-secondary-400 dark:hover:bg-secondary-600'
             } transition-colors`}
             title={product.isActive ? 'Désactiver' : 'Activer'}
           >
@@ -249,22 +229,14 @@ const ProductCard = React.memo(({ product, viewMode, onEdit, onDelete, onToggle,
           </button>
           <button
             onClick={() => onEdit(product)}
-            className={`p-2 rounded ${
-              isDarkMode 
-                ? 'bg-blue-900/20 text-blue-400 hover:bg-blue-900/30' 
-                : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-            } transition-colors`}
+            className="p-2 rounded bg-primary-100 text-primary-700 hover:bg-primary-200 dark:bg-primary-900/20 dark:text-primary-400 dark:hover:bg-primary-900/30 transition-colors"
             title={getTranslation('products.edit', 'Modifier')}
           >
             <Edit size={16} />
           </button>
           <button
             onClick={() => onDelete(product)}
-            className={`p-2 rounded ${
-              isDarkMode 
-                ? 'bg-red-900/20 text-red-400 hover:bg-red-900/30' 
-                : 'bg-red-100 text-red-700 hover:bg-red-200'
-            } transition-colors`}
+            className="p-2 rounded bg-error-100 text-error-700 hover:bg-error-200 dark:bg-error-900/20 dark:text-error-400 dark:hover:bg-error-900/30 transition-colors"
             title={getTranslation('products.delete', 'Supprimer')}
           >
             <Trash2 size={16} />
