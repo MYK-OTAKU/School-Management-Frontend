@@ -68,27 +68,27 @@ const Monitoring = () => {
     <MonitoringProvider>
       <div className="p-6">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center">
-            <Clock className="mr-3 text-purple-600" />
+          <h1 className="text-2xl font-bold text-text-main flex items-center">
+            <Clock className="mr-3 text-primary-500" />
             {getTranslation('monitoring.title', 'Monitoring')}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-text-muted mt-2">
             {getTranslation('monitoring.description', 'Monitor user sessions and activities')}
           </p>
         </div>
 
         {/* Onglets */}
         <div className="mb-6">
-          <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="border-b border-primary-400/20">
             <nav className="-mb-px flex space-x-8">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center py-4 px-1 border-b-2 font-medium text-sm ${
+                  className={`flex items-center py-4 px-1 border-b-2 font-medium text-sm ${ 
                     activeTab === tab.id
-                      ? 'border-purple-500 text-purple-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-primary-500 text-primary-500'
+                      : 'border-transparent text-text-muted hover:text-text-main hover:border-secondary-400'
                   }`}
                 >
                   {tab.icon}

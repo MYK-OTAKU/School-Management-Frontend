@@ -55,7 +55,7 @@ const SplashScreen = ({ controlled = false, fadeOut = false, maxDuration = 3000 
         position: 'fixed',
         top: 0,
         left: 0,
-        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 35%, #3B82F6 100%)',
+        background: 'linear-gradient(135deg, rgb(var(--color-background)) 0%, rgb(var(--color-primary) / 0.8) 100%)',
       }}
     >
       {/* Logo avec animation améliorée */}
@@ -72,12 +72,12 @@ const SplashScreen = ({ controlled = false, fadeOut = false, maxDuration = 3000 
         />
       </div>
       
-      <h1 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-accent-400">
+      <h1 className="text-3xl font-bold mb-4 text-transparent bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-accent-400)]">
         MalianDevs Template
       </h1>
       
       <div className="mt-6">
-        <div className="w-14 h-14 rounded-full border-4 border-t-primary-500 border-r-accent-400 border-b-secondary-300 border-l-secondary-200 animate-spin"></div>
+        <div className="w-14 h-14 rounded-full border-4 border-t-[var(--color-primary-500)] border-r-[var(--color-accent-400)] border-b-[var(--color-secondary-300)] border-l-[var(--color-secondary-200)] animate-spin"></div>
       </div>
     </div>
   );

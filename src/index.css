@@ -4,33 +4,33 @@
 
 /* Variables CSS pour le thème "EduTech Classic" */
 :root {
-  /* 🎨 Palette EduTech Classic (Light Mode) */
-  --color-primary: 59 130 246;      /* #3B82F6 */
-  --color-secondary: 241 245 249;   /* #F1F5F9 */
-  --color-accent: 14 165 233;       /* #0EA5E9 */
-  --color-success: 16 185 129;      /* #10B981 */
-  --color-warning: 245 158 11;      /* #F59E0B */
-  --color-error: 239 68 68;        /* #EF4444 */
-  --color-text-main: 30 41 59;      /* #1E293B */
-  --color-text-muted: 100 116 139;  /* #64748B */
-  --color-background: 249 250 251;  /* #F9FAFB */
+  /* 🎨 Palette — “EduBright School” (Light Mode) */
+  --color-primary: 37 99 235;       /* #2563EB */
+  --color-secondary: 167 243 208;    /* #A7F3D0 */
+  --color-accent: 20 184 166;       /* #14B8A6 */
+  --color-success: 34 197 94;       /* #22C55E */
+  --color-warning: 250 204 21;      /* #FACC15 */
+  --color-error: 244 63 94;         /* #F43F5E */
+  --color-text-main: 15 23 42;      /* #0F172A */
+  --color-text-muted: 29 78 216;     /* #1D4ED8 */
+  --color-background: 224 242 254;   /* #E0F2FE */
   --color-card: 255 255 255;        /* #FFFFFF */
 
   --font-size-base: 16px;
 }
 
 .dark {
-  /* 🎨 Palette EduTech Classic (Dark Mode) */
+  /* 🎨 Palette — “EduBright School” (Dark Mode) */
   --color-primary: 59 130 246;      /* #3B82F6 */
-  --color-secondary: 241 245 249;   /* #F1F5F9 - Note: Peut nécessiter un ajustement pour le mode sombre */
-  --color-accent: 14 165 233;       /* #0EA5E9 */
-  --color-success: 16 185 129;      /* #10B981 */
-  --color-warning: 245 158 11;      /* #F59E0B */
-  --color-error: 239 68 68;        /* #EF4444 */
-  --color-text-main: 241 245 249;   /* #F1F5F9 */
-  --color-text-muted: 100 116 139;  /* #64748B */
-  --color-background: 15 23 42;     /* #0F172A */
-  --color-card: 30 41 59;           /* #1E293B */
+  --color-secondary: 16 185 129;     /* #10B981 */
+  --color-accent: 56 189 248;       /* #38BDF8 */
+  --color-success: 74 222 128;      /* #4ADE80 */
+  --color-warning: 234 179 8;       /* #EAB308 */
+  --color-error: 251 113 133;      /* #FB7185 */
+  --color-text-main: 224 242 254;   /* #E0F2FE */
+  --color-text-muted: 165 180 252;   /* #A5B4FC */
+  --color-background: 10 25 47;      /* #0A192F */
+  --color-card: 17 34 64;           /* #112240 */
 }
 
 /* Styles de base pour l'application */

@@ -104,63 +104,24 @@ const Settings = () => {
   console.log('🎨 [SETTINGS] Mode actuel:', { currentTheme, isDarkMode });
 
   // ✅ HARMONISATION: Styles identiques au Dashboard
-  const containerBg = isDarkMode 
-    ? 'rgba(30, 41, 59, 0.9)' 
-    : 'rgba(255, 255, 255, 0.95)';
-
-  const containerBorder = isDarkMode 
-    ? 'border-purple-400/30' 
-    : 'border-blue-300/50';
-
-  const textColor = isDarkMode 
-    ? 'text-white' 
-    : 'text-gray-900';
-
-  const secondaryTextColor = isDarkMode 
-    ? 'text-gray-400' 
-    : 'text-gray-600';
-
-  const inputBg = isDarkMode 
-    ? 'bg-gray-700/80' 
-    : 'bg-gray-50';
-
-  const inputBorder = isDarkMode 
-    ? 'border-gray-600 focus:border-purple-500' 
-    : 'border-gray-300 focus:border-blue-500';
-
-  const primaryButtonBg = isDarkMode 
-    ? 'bg-purple-600 hover:bg-purple-700' 
-    : 'bg-blue-600 hover:bg-blue-700';
-
-  const tabButtonActiveBg = isDarkMode 
-    ? 'bg-purple-600/90 text-white shadow-lg' 
-    : 'bg-blue-600 text-white shadow-lg';
-
-  const tabButtonInactiveBg = isDarkMode 
-    ? 'text-gray-300 hover:text-white hover:bg-purple-600/30' 
-    : 'text-gray-700 hover:text-gray-900 hover:bg-blue-100';
-
-  const iconColor = isDarkMode 
-    ? 'text-purple-400' 
-    : 'text-blue-600';
-
-  const checkboxColor = isDarkMode 
-    ? 'text-purple-600 focus:ring-purple-500' 
-    : 'text-blue-600 focus:ring-blue-500';
+  const containerBg = 'bg-card';
+  const containerBorder = 'border-primary-400/20';
+  const textColor = 'text-text-main';
+  const secondaryTextColor = 'text-text-muted';
+  const inputBg = 'bg-secondary-700/50';
+  const inputBorder = 'border-secondary-600 focus:border-primary-500';
+  const primaryButtonBg = 'bg-primary-600 hover:bg-primary-700';
+  const tabButtonActiveBg = 'bg-primary-600 text-white shadow-lg';
+  const tabButtonInactiveBg = 'text-text-muted hover:text-text-main hover:bg-primary-600/20';
+  const iconColor = 'text-primary-400';
+  const checkboxColor = 'text-primary-600 focus:ring-primary-500';
 
   // ✅ CORRECTION: Styles de sélection beaucoup plus contrastés
   const optionSelectedStyle = (value, type) => {
     const isSelected = (type === 'theme' && settings.theme === value) || (type === 'language' && settings.language === value);
-    
-    if (isDarkMode) {
-      return isSelected 
-        ? 'border-purple-400 bg-purple-600/30 shadow-lg ring-2 ring-purple-400/50' 
-        : 'border-gray-600 bg-gray-700/60 hover:border-gray-500 hover:bg-gray-700/80';
-    } else {
-      return isSelected 
-        ? 'border-blue-500 bg-blue-100 shadow-lg ring-2 ring-blue-400/30' 
-        : 'border-gray-300 bg-white hover:border-blue-300 hover:bg-blue-50 shadow-sm';
-    }
+    return isSelected
+      ? 'border-primary-500 bg-primary-500/20 shadow-lg ring-2 ring-primary-400/30'
+      : 'border-secondary-600 bg-secondary-700/50 hover:border-primary-500 hover:bg-primary-500/10';
   };
 
   const renderTabContent = () => {
@@ -173,7 +134,7 @@ const Settings = () => {
             </h3>
             
             <div className="space-y-6">
-              <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: isDarkMode ? 'rgba(75, 85, 99, 0.3)' : 'rgba(243, 244, 246, 0.8)' }}>
+              <div className={`flex items-center justify-between p-4 rounded-lg ${inputBg}`}>
                 <div>
                   <label className={`${textColor} font-medium transition-colors duration-300`}>
                     {getTranslation('settings.autoSaveLabel', 'Sauvegarde automatique')}
@@ -190,7 +151,7 @@ const Settings = () => {
                 />
               </div>
               
-              <div className="p-4 rounded-lg" style={{ backgroundColor: isDarkMode ? 'rgba(75, 85, 99, 0.3)' : 'rgba(243, 244, 246, 0.8)' }}>
+              <div className={`p-4 rounded-lg ${inputBg}`}>
                 <label className={`block ${textColor} font-medium mb-3 transition-colors duration-300`}>
                   {getTranslation('settings.sessionTimeoutLabel', 'Délai d\'expiration de session')}
                 </label>
@@ -235,7 +196,7 @@ const Settings = () => {
                       className={`relative p-4 rounded-lg border-2 transition-all duration-300 ${optionSelectedStyle(themeOption.value, 'theme')}`}
                     >
                       {isSelected && (
-                        <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-purple-500' : 'bg-blue-500'}`}>
+                        <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center bg-primary-500`}>
                           <Check size={14} className="text-white" />
                         </div>
                       )}
@@ -256,10 +217,7 @@ const Settings = () => {
                 })}
               </div>
               
-              <div className="mt-6 p-4 rounded-lg border-2 border-dashed" style={{ 
-                borderColor: isDarkMode ? 'rgba(139, 92, 246, 0.5)' : 'rgba(59, 130, 246, 0.5)',
-                backgroundColor: isDarkMode ? 'rgba(139, 92, 246, 0.1)' : 'rgba(59, 130, 246, 0.1)'
-              }}>
+              <div className="mt-6 p-4 rounded-lg border-2 border-dashed border-primary-500/50 bg-primary-500/10">
                 <p className={`${textColor} text-sm font-medium mb-2`}>
                   {getTranslation('settings.currentThemePreview', 'Aperçu du thème actuel')} : <span className={`${iconColor} font-semibold`}>
                     {isDarkMode ? '🌙 ' + getTranslation('settings.themeDark', 'Sombre') : '☀️ ' + getTranslation('settings.themeLight', 'Clair')}
@@ -299,7 +257,7 @@ const Settings = () => {
                       className={`relative p-4 rounded-lg border-2 transition-all duration-300 ${optionSelectedStyle(lang.code, 'language')}`}
                     >
                       {isSelected && (
-                        <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-purple-500' : 'bg-blue-500'}`}>
+                        <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center bg-primary-500`}>
                           <Check size={14} className="text-white" />
                         </div>
                       )}
@@ -320,10 +278,7 @@ const Settings = () => {
                 })}
               </div>
               
-              <div className="mt-6 p-4 rounded-lg border-2 border-dashed" style={{ 
-                borderColor: isDarkMode ? 'rgba(139, 92, 246, 0.5)' : 'rgba(59, 130, 246, 0.5)',
-                backgroundColor: isDarkMode ? 'rgba(139, 92, 246, 0.1)' : 'rgba(59, 130, 246, 0.1)'
-              }}>
+              <div className="mt-6 p-4 rounded-lg border-2 border-dashed border-primary-500/50 bg-primary-500/10">
                 <p className={`${textColor} text-sm font-medium mb-2`}>
                   {getTranslation('settings.currentLanguagePreview', 'Langue actuelle')} : <span className={`${iconColor} font-semibold`}>
                     {/* ✅ Utiliser currentLanguage du contexte pour affichage correct */}
@@ -350,9 +305,9 @@ const Settings = () => {
               {getTranslation('settings.accountInfoTitle', 'Informations du compte')}
             </h3>
             
-            <div className={`${inputBg} rounded-lg p-6 space-y-4 transition-colors duration-300 border`} style={{ borderColor: isDarkMode ? 'rgba(139, 92, 246, 0.3)' : 'rgba(59, 130, 246, 0.3)' }}>
+            <div className={`${inputBg} rounded-lg p-6 space-y-4 transition-colors duration-300 border border-primary-500/30`}>
               <div className="flex items-center space-x-4">
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${isDarkMode ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gradient-to-r from-blue-500 to-cyan-500'}`}>
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-r from-primary-500 to-accent-500`}>
                   <span className="text-white font-bold text-lg">
                     {user?.firstName?.charAt(0) || 'U'}{user?.lastName?.charAt(0) || 'U'}
                   </span>
@@ -381,7 +336,7 @@ const Settings = () => {
             </h3>
             
             <div className="space-y-4">
-              <div className={`${inputBg} rounded-lg p-4 transition-colors duration-300 border`} style={{ borderColor: isDarkMode ? 'rgba(139, 92, 246, 0.2)' : 'rgba(59, 130, 246, 0.2)' }}>
+              <div className={`${inputBg} rounded-lg p-4 transition-colors duration-300 border border-primary-500/20`}>
                 <div className="flex items-center space-x-3 mb-2">
                   <Database size={16} className={`${iconColor}`} />
                   <span className={`${textColor} font-medium transition-colors duration-300`}>
@@ -393,7 +348,7 @@ const Settings = () => {
                 </p>
               </div>
               
-              <div className={`${inputBg} rounded-lg p-4 transition-colors duration-300 border`} style={{ borderColor: isDarkMode ? 'rgba(139, 92, 246, 0.2)' : 'rgba(59, 130, 246, 0.2)' }}>
+              <div className={`${inputBg} rounded-lg p-4 transition-colors duration-300 border border-primary-500/20`}>
                 <div className="flex items-center space-x-3 mb-2">
                   <Monitor size={16} className={`${iconColor}`} />
                   <span className={`${textColor} font-medium transition-colors duration-300`}>
@@ -420,11 +375,7 @@ const Settings = () => {
 
   return (
     <div 
-      className="w-full h-full space-y-6 p-6 min-h-full flex flex-col transition-all duration-500"
-      style={{
-        background: 'transparent', // ✅ Hérite du fond du Dashboard
-        padding: '0', // ✅ Pas de padding externe
-      }}
+      className="w-full h-full space-y-6 p-6 min-h-full flex flex-col transition-all duration-500 bg-transparent"
     >
       {/* ✅ NOUVEAU: Container interne avec padding minimal */}
       <div className="flex-1 w-full p-4">
@@ -450,13 +401,7 @@ const Settings = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Navigation des onglets */}
           <div className="lg:col-span-1">
-            <div 
-              className={`rounded-lg border ${containerBorder} p-4 transition-all duration-300 shadow-lg`}
-              style={{
-                background: containerBg,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
+            <div className={`rounded-lg border ${containerBorder} p-4 transition-all duration-300 shadow-lg ${containerBg} backdrop-blur-sm`}>
               <nav className="space-y-2">
                 {tabs.map((tab) => (
                   <button
@@ -478,13 +423,7 @@ const Settings = () => {
 
           {/* Contenu de l'onglet */}
           <div className="lg:col-span-3">
-            <div 
-              className={`rounded-lg border ${containerBorder} p-8 transition-all duration-300 shadow-lg`}
-              style={{
-                background: containerBg,
-                backdropFilter: 'blur(10px)'
-              }}
-            >
+            <div className={`rounded-lg border ${containerBorder} p-8 transition-all duration-300 shadow-lg ${containerBg} backdrop-blur-sm`}>
               {renderTabContent()}
             </div>
           </div>

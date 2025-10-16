@@ -192,40 +192,37 @@ const Permissions = () => {
   };
 
   // Styles dynamiques basés sur le thème
-  const getTextColorClass = (isPrimary) => isDarkMode ? (isPrimary ? 'text-white' : 'text-gray-400') : (isPrimary ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]');
-  const getBorderColorClass = () => isDarkMode ? 'border-purple-400/20' : 'border-[var(--border-color)]';
-  const getInputBorderClass = () => isDarkMode ? 'border-gray-600' : 'border-[var(--border-color)]'; // Added this line
-  const getInputBgClass = () => isDarkMode ? 'bg-gray-700/50' : 'bg-[var(--background-input)]';
-  const getInputTextClass = () => isDarkMode ? 'text-white' : 'text-[var(--text-primary)]';
-  const getInputPlaceholderClass = () => isDarkMode ? 'placeholder-gray-400' : 'placeholder-[var(--text-secondary)]';
-  const getInputFocusRingClass = () => isDarkMode ? 'focus:ring-purple-500' : 'focus:ring-[var(--accent-color-primary)]';
-  const getAccentColorClass = () => isDarkMode ? 'text-purple-400' : 'text-[var(--accent-color-primary)]';
-  const getButtonBgClass = () => isDarkMode ? 'bg-purple-600' : 'bg-[var(--accent-color-primary)]';
-  const getButtonHoverBgClass = () => isDarkMode ? 'hover:bg-purple-700' : 'hover:opacity-80';
-  const getPurpleAccentColorClass = () => isDarkMode ? 'text-purple-300' : 'text-[var(--accent-color-primary)]';
-  const getPurpleAccentBgClass = () => isDarkMode ? 'bg-purple-600/20' : 'bg-[var(--accent-color-primary)]20';
-  const getGreenAccentColorClass = () => isDarkMode ? 'text-green-300' : 'text-[var(--success-color)]';
-  const getGreenAccentBgClass = () => isDarkMode ? 'bg-green-600/20' : 'bg-[var(--success-color)]20';
-  const getRedAccentColorClass = () => isDarkMode ? 'text-red-400' : 'text-[var(--error-color)]';
-  const getRedAccentBgClass = () => isDarkMode ? 'hover:bg-red-600/20' : 'hover:bg-[var(--error-color)]20';
-  const getBlueAccentColorClass = () => isDarkMode ? 'text-blue-400' : 'text-[var(--accent-color-secondary)]';
-  const getBlueAccentBgClass = () => isDarkMode ? 'hover:bg-blue-600/20' : 'hover:bg-[var(--accent-color-secondary)]20';
-  const getOrangeAccentColorClass = () => isDarkMode ? 'text-yellow-400' : 'text-[var(--warning-color)]';
-  const getOrangeAccentBgClass = () => isDarkMode ? 'bg-yellow-600/20' : 'bg-[var(--warning-color)]20';
+  const textColor = 'text-text-main';
+  const secondaryTextColor = 'text-text-muted';
+  const borderColor = 'border-primary-400/20';
+  const inputBorder = 'border-secondary-600';
+  const inputBg = 'bg-secondary-700/50';
+  const inputText = 'text-text-main';
+  const inputPlaceholder = 'placeholder-secondary-400';
+  const inputFocusRing = 'focus:ring-primary-500';
+  const accentColor = 'text-primary-400';
+  const buttonBg = 'bg-primary-600';
+  const buttonHoverBg = 'hover:bg-primary-700';
+  const successColor = 'text-success-300';
+  const successBg = 'bg-success-600/20';
+  const errorColor = 'text-error-400';
+  const errorBg = 'hover:bg-error-600/20';
+  const warningColor = 'text-warning-400';
+  const warningBg = 'bg-warning-600/20';
 
   if (!canViewPermissions) {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className={`text-3xl font-bold ${textColor}`}>
             {getTranslation('permissions.title', 'Gestion des Permissions')}
           </h1>
         </div>
         <div className="text-center py-12">
-          <div className={`${getTextColorClass(false)} text-lg mb-4`}>
+          <div className={`${secondaryTextColor} text-lg mb-4`}>
             {getTranslation('permissions.accessDenied', 'Accès refusé')}
           </div>
-          <div className={getTextColorClass(false)}>
+          <div className={secondaryTextColor}>
             {getTranslation('permissions.noAccessMessage', 'Vous n\'avez pas les permissions pour accéder à cette page.')}
           </div>
         </div>
@@ -237,12 +234,12 @@ const Permissions = () => {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className={`text-3xl font-bold ${textColor}`}>
             {getTranslation('permissions.title', 'Gestion des Permissions')}
           </h1>
         </div>
         <div className="flex items-center justify-center h-64">
-          <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${isDarkMode ? 'border-purple-600' : 'border-[var(--accent-color-primary)]'}`}></div>
+          <div className={`animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600`}></div>
         </div>
       </div>
     );
@@ -252,15 +249,15 @@ const Permissions = () => {
     return (
       <div className="space-y-6 w-full max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <h1 className={`text-3xl font-bold ${textColor}`}>
             {getTranslation('permissions.title', 'Gestion des Permissions')}
           </h1>
         </div>
         <div className="text-center py-12">
-          <div className={`${getTextColorClass(false)} text-lg mb-4`}>
+          <div className={`${secondaryTextColor} text-lg mb-4`}>
             {getTranslation('permissions.errorLoadingPermissions', 'Erreur lors du chargement des permissions')}
           </div>
-          <div className={getTextColorClass(false)}>
+          <div className={secondaryTextColor}>
             {error.message || getTranslation('common.unknownError', 'Une erreur est survenue')}
           </div>
         </div>
@@ -273,8 +270,8 @@ const Permissions = () => {
       {/* En-tête */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Shield className={`h-8 w-8 ${getAccentColorClass()}`} />
-          <h1 className={`text-3xl font-bold ${getTextColorClass(true)}`}>
+          <Shield className={`h-8 w-8 ${accentColor}`} />
+          <h1 className={`text-3xl font-bold ${textColor}`}>
             {getTranslation('permissions.title', 'Gestion des Permissions')}
           </h1>
         </div>
@@ -282,7 +279,7 @@ const Permissions = () => {
         {canManagePermissions && (
           <button
             onClick={handleCreatePermission}
-            className={`flex items-center space-x-2 px-4 py-2 ${getButtonBgClass()} text-white rounded-lg ${getButtonHoverBgClass()} transition-colors disabled:opacity-50`}
+            className={`flex items-center space-x-2 px-4 py-2 ${buttonBg} text-white rounded-lg ${buttonHoverBg} transition-colors disabled:opacity-50`}
             disabled={showPermissionForm}
           >
             <Plus size={16} />
@@ -292,21 +289,15 @@ const Permissions = () => {
       </div>
 
       {/* Barre de recherche */}
-      <div 
-        className={`p-6 rounded-lg border ${getBorderColorClass()}`}
-        style={{
-          background: 'var(--background-card)', // Utilise la variable CSS
-          backdropFilter: 'blur(10px)'
-        }}
-      >
+      <div className={`p-6 rounded-lg border ${borderColor} bg-card backdrop-blur-sm`}>
         <div className="relative">
-          <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${getTextColorClass(false)}`} size={16} />
+          <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${secondaryTextColor}`} size={16} />
           <input
             type="text"
             placeholder={getTranslation('permissions.searchPermissions', 'Rechercher une permission...')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`w-full pl-10 pr-4 py-2 ${getInputBgClass()} border ${getInputBorderClass()} rounded-lg ${getInputTextClass()} ${getInputPlaceholderClass()} focus:outline-none focus:ring-2 ${getInputFocusRingClass()}`}
+            className={`w-full pl-10 pr-4 py-2 ${inputBg} border ${inputBorder} rounded-lg ${inputText} ${inputPlaceholder} focus:outline-none focus:ring-2 ${inputFocusRing}`}
           />
         </div>
       </div>
@@ -319,53 +310,46 @@ const Permissions = () => {
           const categoryTitle = categoryLabels[category] || category;
           
           return (
-            <div 
-              key={category}
-              className={`rounded-lg border ${getBorderColorClass()}`}
-              style={{
-                background: 'var(--background-card)', // Utilise la variable CSS
-                backdropFilter: 'blur(10px)'
-              }}
-            >
-              <div className={`px-6 py-4 border-b ${isDarkMode ? 'border-gray-600' : 'border-[var(--border-color)]'}`}>
-                <h2 className={`text-xl font-semibold ${getTextColorClass(true)}`}>
+            <div key={category} className={`rounded-lg border ${borderColor} bg-card backdrop-blur-sm`}>
+              <div className={`px-6 py-4 border-b ${borderColor}`}>
+                <h2 className={`text-xl font-semibold ${textColor}`}>
                   {categoryTitle} ({perms.length})
                 </h2>
               </div>
               
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className={getInputBgClass()}>
+                  <thead className={inputBg}>
                     <tr>
-                      <th className={`px-6 py-3 text-left text-xs font-medium ${getTextColorClass(false)} uppercase tracking-wider`}>
+                      <th className={`px-6 py-3 text-left text-xs font-medium ${secondaryTextColor} uppercase tracking-wider`}>
                         {getTranslation('common.name', 'Nom')}
                       </th>
-                      <th className={`px-6 py-3 text-left text-xs font-medium ${getTextColorClass(false)} uppercase tracking-wider`}>
+                      <th className={`px-6 py-3 text-left text-xs font-medium ${secondaryTextColor} uppercase tracking-wider`}>
                         {getTranslation('common.description', 'Description')}
                       </th>
-                      <th className={`px-6 py-3 text-left text-xs font-medium ${getTextColorClass(false)} uppercase tracking-wider`}>
+                      <th className={`px-6 py-3 text-left text-xs font-medium ${secondaryTextColor} uppercase tracking-wider`}>
                         {getTranslation('common.status', 'Statut')}
                       </th>
                       {canManagePermissions && (
-                        <th className={`px-6 py-3 text-left text-xs font-medium ${getTextColorClass(false)} uppercase tracking-wider`}>
+                        <th className={`px-6 py-3 text-left text-xs font-medium ${secondaryTextColor} uppercase tracking-wider`}>
                           {getTranslation('common.actions', 'Actions')}
                         </th>
                       )}
                     </tr>
                   </thead>
-                  <tbody className={`divide-y ${isDarkMode ? 'divide-gray-700/50' : 'divide-[var(--border-color)]'}`}>
+                  <tbody className={`divide-y ${borderColor}`}>
                     {perms.map(permission => {
                       const isCritical = isCriticalPermission(permission.name);
                       
                       return (
-                        <tr key={permission.id} className={isDarkMode ? 'hover:bg-gray-700/30' : 'hover:bg-[var(--background-secondary)]'}>
+                        <tr key={permission.id} className="hover:bg-secondary-700/30">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center space-x-2">
-                              <div className={`font-medium ${getTextColorClass(true)}`}>
+                              <div className={`font-medium ${textColor}`}>
                                 {getTranslation(`permissions.permissionNames.${permission.name}`, permission.name)}
                               </div>
                               {isCritical && (
-                                <div className={`flex items-center px-2 py-1 text-xs rounded ${getOrangeAccentBgClass()} ${getOrangeAccentColorClass()}`}>
+                                <div className={`flex items-center px-2 py-1 text-xs rounded ${warningBg} ${warningColor}`}>
                                   <Lock className="w-3 h-3 mr-1" />
                                   {getTranslation('permissions.systemBadge', 'Système')}
                                 </div>
@@ -373,16 +357,12 @@ const Permissions = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <div className={`text-sm ${getTextColorClass(false)}`}>
+                            <div className={`text-sm ${secondaryTextColor}`}>
                               {permission.description}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-2 py-1 text-xs rounded ${
-                              isCritical 
-                                ? `${getOrangeAccentBgClass()} ${getOrangeAccentColorClass()}` 
-                                : `${getGreenAccentBgClass()} ${getGreenAccentColorClass()}`
-                            }`}>
+                            <span className={`inline-flex px-2 py-1 text-xs rounded ${isCritical ? `${warningBg} ${warningColor}` : `${successBg} ${successColor}`}`}>
                               {isCritical ? getTranslation('permissions.systemStatus', 'Système') : getTranslation('permissions.modifiableStatus', 'Modifiable')}
                             </span>
                           </td>
@@ -391,12 +371,7 @@ const Permissions = () => {
                               <div className="flex items-center space-x-2">
                                 <button
                                   onClick={() => handleEditPermission(permission)}
-                                  className={`p-2 rounded-lg transition-colors ${
-                                    isCritical 
-                                      ? `${isDarkMode ? 'text-gray-500' : 'text-[var(--text-secondary)]'} cursor-not-allowed` 
-                                      : `${getBlueAccentColorClass()} ${getBlueAccentBgClass()}`
-                                  }`}
-                                  // ✅ i18n: Tooltip traduit
+                                  className={`p-2 rounded-lg transition-colors ${isCritical ? `text-gray-500 cursor-not-allowed` : `text-accent-400 hover:bg-accent-600/20`}`}
                                   title={isCritical ? getTranslation('permissions.permissionSystemNotModifiable', 'Permission système non modifiable') : getTranslation('common.edit', 'Modifier')}
                                   disabled={showPermissionForm || isCritical}
                                 >
@@ -404,12 +379,7 @@ const Permissions = () => {
                                 </button>
                                 <button
                                   onClick={() => handleDeletePermission(permission)}
-                                  className={`p-2 rounded-lg transition-colors ${
-                                    isCritical 
-                                      ? `${isDarkMode ? 'text-gray-500' : 'text-[var(--text-secondary)]'} cursor-not-allowed` 
-                                      : `${getRedAccentColorClass()} ${getRedAccentBgClass()}`
-                                  }`}
-                                  // ✅ i18n: Tooltip traduit
+                                  className={`p-2 rounded-lg transition-colors ${isCritical ? `text-gray-500 cursor-not-allowed` : `${errorColor} ${errorBg}`}`}
                                   title={isCritical ? getTranslation('permissions.permissionSystemNotDeletable', 'Permission système non supprimable') : getTranslation('common.delete', 'Supprimer')}
                                   disabled={isCritical || deletePermissionMutation.isLoading}
                                 >
@@ -432,15 +402,15 @@ const Permissions = () => {
       {/* Message si aucune permission */}
       {filteredPermissions.length === 0 && (
         <div className="text-center py-12">
-          <Shield className={`h-12 w-12 ${getTextColorClass(false)} mx-auto mb-4`} />
-          <p className={`${getTextColorClass(false)} text-lg`}>
+          <Shield className={`h-12 w-12 ${secondaryTextColor} mx-auto mb-4`} />
+          <p className={`${secondaryTextColor} text-lg`}>
             {searchTerm ? 
               getTranslation('permissions.noPermissionsFound', 'Aucune permission trouvée') :
               getTranslation('permissions.noPermissions', 'Aucune permission disponible')
             }
           </p>
           {searchTerm && (
-            <p className={`${getTextColorClass(false)} text-sm`}>
+            <p className={`${secondaryTextColor} text-sm`}>
               {getTranslation('permissions.tryModifySearch', 'Essayez de modifier votre recherche')}
             </p>
           )}
