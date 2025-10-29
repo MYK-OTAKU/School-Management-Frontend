@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       
       const checkTokenExpiry = () => {
         if (isTokenExpired(token)) {
-          console.log('🔒 [AUTH_CONTEXT] Token expiré détecté');
+          // Log de débogage du token expiré
           clearAuthState();
           showSessionExpired();
           navigate('/', { replace: true });
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
   // Fonction pour nettoyer l'état d'authentification
   const clearAuthState = useCallback(() => {
-    console.log('🧹 [AUTH_CONTEXT] Nettoyage de l\'état d\'authentification');
+    // Nettoyage de l'état d'authentification
     setUser(null);
     setIsAuthenticated(false);
     setTwoFactorRequired(false);
@@ -71,18 +71,12 @@ export const AuthProvider = ({ children }) => {
     // ✅ Éviter les redirections multiples
     if (redirectionHandled.current) return;
 
-    console.log('🔍 [AUTH_CONTEXT] Gestion des redirections:', {
-      pathname: location.pathname,
-      isAuthenticated,
-      user: !!user,
-      twoFactorRequired,
-      tempAuthData: !!tempAuthData
-    });
+    // Gestion des redirections
 
     // ✅ Cas 1: Utilisateur complètement authentifié - rediriger vers dashboard
     if (isAuthenticated && user && !twoFactorRequired) {
       if (location.pathname === '/' || location.pathname === '/verify-2fa') {
-        console.log('✅ [AUTH_CONTEXT] Redirection vers dashboard');
+        // Redirection vers le tableau de bord
         redirectionHandled.current = true;
         navigate('/dashboard', { replace: true });
         return;
@@ -92,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     // ✅ CORRECTION: Cas 2: 2FA requis - rediriger vers page 2FA
     if (twoFactorRequired && tempAuthData?.tempToken && !isAuthenticated) {
       if (location.pathname !== '/verify-2fa') { // ✅ Condition corrigée
-        console.log('✅ [AUTH_CONTEXT] Redirection vers 2FA');
+        // Redirection vers la vérification 2FA
         redirectionHandled.current = true;
         navigate('/verify-2fa', { replace: true }); // ✅ Route corrigée
         return;
@@ -102,7 +96,7 @@ export const AuthProvider = ({ children }) => {
     // ✅ Cas 3: Pas d'authentification - rediriger vers login
     if (!isAuthenticated && !twoFactorRequired && !tempAuthData) {
       if (location.pathname !== '/') {
-        console.log('✅ [AUTH_CONTEXT] Redirection vers login');
+        // Redirection vers la page de connexion
         redirectionHandled.current = true;
         navigate('/', { replace: true });
         return;
@@ -117,7 +111,7 @@ export const AuthProvider = ({ children }) => {
       if (isInitializing.current) return;
       isInitializing.current = true;
 
-      console.log('🔄 [AUTH_CONTEXT] Initialisation de l\'authentification...');
+      // Initialisation de l'authentification
       try {
         setLoading(true);
         authService.init();
@@ -127,18 +121,18 @@ export const AuthProvider = ({ children }) => {
           const currentToken = authService.getToken();
           
           if (currentToken && !isTokenExpired(currentToken)) {
-            console.log('✅ [AUTH_CONTEXT] Utilisateur déjà connecté:', currentUser?.username);
+            // Utilisateur déjà connecté
             setUser(currentUser);
             setToken(currentToken);
             setIsAuthenticated(true);
             setTwoFactorRequired(false);
             setTempAuthData(null);
           } else {
-            console.log('🔒 [AUTH_CONTEXT] Token expiré, nettoyage');
+            // Token expiré, nettoyage en cours
             clearAuthState();
           }
         } else {
-          console.log('❌ [AUTH_CONTEXT] Aucune session active trouvée');
+          // Aucune session active trouvée
           clearAuthState();
         }
       } catch (error) {
@@ -148,7 +142,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         setInitialAuthCheckComplete(true);
         isInitializing.current = false;
-        console.log('✅ [AUTH_CONTEXT] Initialisation terminée');
+        // Initialisation terminée
       }
     };
 
@@ -158,7 +152,7 @@ export const AuthProvider = ({ children }) => {
   // Écouter les événements d'expiration de session
   useEffect(() => {
     const handleSessionExpired = (event) => {
-      console.log('🔒 [AUTH_CONTEXT] Session expirée reçue:', event.detail);
+      // Gestion de l'expiration de session
       clearAuthState();
       showSessionExpired();
       
@@ -174,62 +168,43 @@ export const AuthProvider = ({ children }) => {
     };
   }, [clearAuthState, showSessionExpired, navigate, location.pathname]);
 
-  // ✅ CORRECTION: Fonction de connexion avec qrCodeUrl
+  // Fonction de connexion avec gestion du 2FA
   const login = useCallback(async (credentials) => {
     if (loginInProgress.current) {
-      console.log('🔄 [AUTH_CONTEXT] Connexion déjà en cours, ignorée');
       return;
     }
 
     loginInProgress.current = true;
     redirectionHandled.current = false;
     
-    console.log('🔐 [AUTH_CONTEXT] Tentative de connexion pour:', credentials.username);
-    
     try {
       setLoading(true);
       const response = await authService.login(credentials);
       
-      console.log('📡 [AUTH_CONTEXT] Réponse de connexion:', response);
-      
-      // ✅ Cas 2FA requis - MISE À JOUR pour les nouveaux champs
+      // 2FA requis
       if (response.success && response.requireTwoFactor) {
-        console.log('🔒 [AUTH_CONTEXT] 2FA requis');
-        console.log('🔍 [AUTH_CONTEXT] Réponse 2FA complète:', {
-          tempToken: !!response.tempToken,
-          userId: response.userId,
-          message: response.message,
-          qrCodeUrl: response.qrCodeUrl,
+        const authData = {
+          tempToken: response.tempToken || '',
+          userId: response.userId || '',
+          message: response.message || '',
+          qrCodeUrl: response.qrCodeUrl || '',
           qrCodeExists: !!response.qrCodeUrl,
-          // ✅ NOUVEAUX CHAMPS
-          manualEntryKey: response.manualEntryKey,
-          isNewSetup: response.isNewSetup,
-          setupReason: response.setupReason,
-          requiresNewConfiguration: response.requiresNewConfiguration
-        });
-
-        setTwoFactorRequired(true);
-        setTempAuthData({
-          tempToken: response.tempToken,
-          userId: response.userId,
-          message: response.message,
-          qrCodeUrl: response.qrCodeUrl,
-          // ✅ AJOUT DES NOUVEAUX CHAMPS
-          manualEntryKey: response.manualEntryKey,
+          manualEntryKey: response.manualEntryKey || '',
           isNewSetup: response.isNewSetup || false,
           setupReason: response.setupReason || 'STANDARD',
           requiresNewConfiguration: response.requiresNewConfiguration || false
-        });
-        setIsAuthenticated(false);                                                                                                                                                                                                                                                                                                                                                        
+        };
+        
+        setTempAuthData(authData);
+        setTwoFactorRequired(true);
+        setIsAuthenticated(false);
         setUser(null);
         setToken(null);
         return response;
       }
       
-      // ✅ Connexion réussie sans 2FA
+      // Connexion réussie sans 2FA
       if (response.success && response.token && response.user) {
-        console.log('✅ [AUTH_CONTEXT] Connexion réussie sans 2FA pour:', response.user.username);
-        
         const currentUser = authService.getCurrentUser();
         const currentToken = authService.getToken();
         
@@ -245,7 +220,7 @@ export const AuthProvider = ({ children }) => {
       throw new Error('Réponse de connexion invalide du serveur');
       
     } catch (error) {
-      console.error('❌ [AUTH_CONTEXT] Erreur de connexion:', error);
+      console.error('Erreur de connexion:', error);
       clearAuthState();
       throw error;
     } finally {
@@ -254,25 +229,19 @@ export const AuthProvider = ({ children }) => {
     }
   }, [clearAuthState]);
 
-  // ✅ CORRECTION: Fonction de vérification 2FA simplifiée
+  // Fonction de vérification 2FA
   const verifyTwoFactor = useCallback(async (twoFactorCode) => {
-    console.log('🔐 [AUTH_CONTEXT] Vérification 2FA...');
+    if (!tempAuthData?.tempToken) {
+      throw new Error("Token temporaire manquant pour la vérification 2FA");
+    }
+    
     redirectionHandled.current = false;
     
     try {
       setLoading(true);
-      
-      if (!tempAuthData?.tempToken) {
-        throw new Error("Token temporaire manquant pour la vérification 2FA");
-      }
-      
       const response = await authService.verifyTwoFactor(tempAuthData.tempToken, twoFactorCode);
       
-      console.log('📡 [AUTH_CONTEXT] Réponse 2FA:', response);
-      
       if (response.success && response.token && response.user) {
-        console.log('✅ [AUTH_CONTEXT] 2FA réussie pour:', response.user.username);
-        
         const currentUser = authService.getCurrentUser();
         const currentToken = authService.getToken();
         
@@ -285,24 +254,22 @@ export const AuthProvider = ({ children }) => {
         return response;
       }
       
-      throw new Error(response.message || 'Échec de la vérification 2FA');
+      throw new Error('Échec de la vérification 2FA');
       
     } catch (error) {
-      console.error('❌ [AUTH_CONTEXT] Erreur 2FA:', error);
+      console.error('Erreur 2FA:', error);
       throw error;
     } finally {
       setLoading(false);
     }
-  }, [tempAuthData]);
+  }, [clearAuthState, tempAuthData]);
 
   // Fonction de déconnexion
   const logout = useCallback(async (reason = null) => {
-    console.log('🚪 [AUTH_CONTEXT] Déconnexion, raison:', reason);
-    
     try {
       await authService.logout();
     } catch (error) {
-      console.error('❌ [AUTH_CONTEXT] Erreur lors de la déconnexion:', error);
+      console.error('Erreur lors de la déconnexion:', error);
     } finally {
       clearAuthState();
       navigate('/', { replace: true });
@@ -311,49 +278,23 @@ export const AuthProvider = ({ children }) => {
 
   // Fonction de vérification de permission
   const hasPermission = useCallback((permission) => {
-    console.group(`🔐 [AUTH] Vérification permission: ${permission}`);
-    
-    if (!user) {
-      console.log('❌ Aucun utilisateur connecté');
-      console.groupEnd();
+    if (!user || !user.role || !user.role.permissions) {
       return false;
     }
-
-    if (!user.role) {
-      console.log('❌ Utilisateur sans rôle');
-      console.groupEnd();
-      return false;
-    }
-
-    if (!user.role.permissions) {
-      console.log('❌ Rôle sans permissions');
-      console.groupEnd();
-      return false;
-    }
-
-    console.log('👤 Utilisateur:', user.username);
-    console.log('🎭 Rôle:', user.role.name);
-    console.log('📜 Permissions disponibles:', user.role.permissions);
 
     // Vérifier si c'est un admin (accès total)
-    const isAdmin = user.role.permissions.includes('ADMIN');
-    if (isAdmin) {
-      console.log('✅ Accès ADMIN - Permission accordée');
-      console.groupEnd();
+    if (user.role.permissions.includes('ADMIN')) {
       return true;
     }
 
     // Vérifier la permission spécifique
-    const hasSpecificPermission = user.role.permissions.includes(permission);
-    console.log(`🔍 Permission "${permission}":`, hasSpecificPermission);
-    console.groupEnd();
-    
-    return hasSpecificPermission;
+    return user.role.permissions.includes(permission);
   }, [user]);
 
   // Fonction de vérification de rôle
   const hasRole = useCallback((roleName) => {
-    return authService.hasRole(roleName);
+    if (!user || !user.role) return false;
+    return user.role.name === roleName;
   }, [user]);
 
   const value = {

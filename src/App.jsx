@@ -8,6 +8,8 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { NotificationWrapper } from './contexts/NotificationWrapper';
 import { AuthProvider } from './contexts/AuthContext';
 import { MonitoringProvider } from './contexts/MonitoringContext'; // ✅ AJOUT
+import { ActiveSchoolYearProvider } from './contexts/ActiveSchoolYearContext';
+import { ClassroomProvider } from './contexts/ClassroomContext';
 
 // Components
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -16,7 +18,6 @@ import TwoFactorPage from './components/TwoFactorPage/TwoFactorPage';
 import Dashboard from './components/Dashboard/Dashboard';
 import SplashScreen from './components/SplashScreen/SplashScreen';
 import SessionExpiryAlert from './components/SessionExpiryAlert/SessionExpiryAlert';
-import Monitoring from './pages/Monitoring/Monitoring';
 
 // Créer un client React Query
 const queryClient = new QueryClient({
@@ -94,7 +95,8 @@ function App() {
               <NotificationWrapper>
                 <AuthProvider>
                   <MonitoringProvider> {/* ✅ AJOUT: Wrapper MonitoringProvider */}
-                    <AuthStateManager>
+                    <ActiveSchoolYearProvider>
+                      <AuthStateManager>
                       {/* ✅ SessionExpiryAlert maintenant dans AuthProvider */}
                       <SessionExpiryAlert />
                       <Routes>
@@ -107,7 +109,8 @@ function App() {
                         } />
                         <Route path="*" element={<Navigate to="/" replace />} />
                       </Routes>
-                    </AuthStateManager>
+                      </AuthStateManager>
+                    </ActiveSchoolYearProvider>
                   </MonitoringProvider> 
                 </AuthProvider>
               </NotificationWrapper>

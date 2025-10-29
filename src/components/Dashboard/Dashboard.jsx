@@ -7,14 +7,16 @@ import Sidebar from '../Sidebar/Sidebar';
 
 // Pages du dashboard
 import Home from '../../pages/Home/Home';
+import ClassroomPage from '../../pages/Classroom/ClassroomPage';
+import SchoolYearPage from '../../pages/SchoolYear/SchoolYearPage';
+import StudentPage from '../../pages/Student/StudentPage';
+import PaymentPage from '../../pages/Payment/PaymentPage';
 import Users from '../../pages/Users/Users';
 import Roles from '../../pages/Roles/Roles';
 import Permissions from '../../pages/Permissions/Permissions';
 import Settings from '../../pages/Settings/Settings';
 import Monitoring from '../../pages/Monitoring/Monitoring';
 import Notifications from '../../pages/Notifications/Notifications';
-import Categories from '../../pages/Categories/Categories';
-import Products from '../../pages/Products/Products';
 
 const Dashboard = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
@@ -142,13 +144,21 @@ const Dashboard = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               
-              {/* ✅ Routes Catégories et Produits - Permission CATEGORIES_VIEW */}
-              <Route path="/categories" element={
-                hasPermission('CATEGORIES_VIEW') ? <Categories /> : <Navigate to="/dashboard" replace />
+              {/* Routes for the school management features */}
+              <Route path="/classrooms" element={
+                hasPermission('CLASSES_VIEW') ? <ClassroomPage /> : <Navigate to="/dashboard" replace />
               } />
-              
-              <Route path="/products" element={
-                hasPermission('CATEGORIES_VIEW') ? <Products /> : <Navigate to="/dashboard" replace />
+
+              <Route path="/school-years" element={
+                hasPermission('SCHOOL_YEARS_MANAGE') ? <SchoolYearPage /> : <Navigate to="/dashboard" replace />
+              } />
+
+              <Route path="/students" element={
+                hasPermission('STUDENTS_VIEW') ? <StudentPage /> : <Navigate to="/dashboard" replace />
+              } />
+
+              <Route path="/payments" element={
+                hasPermission('PAYMENTS_VIEW') ? <PaymentPage /> : <Navigate to="/dashboard" replace />
               } />
               
               {/* ✅ CORRECTION: Utiliser USERS_VIEW */}

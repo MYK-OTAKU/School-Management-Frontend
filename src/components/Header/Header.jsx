@@ -6,6 +6,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useNotification } from '../../hooks/useNotification';
 import { useNavigate } from 'react-router-dom';
 import NotificationPanel from '../NotificationPanel/NotificationPanel';
+import SchoolYearSelector from '../Common/SchoolYearSelector';
 
 const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = false }) => {
   const { user, logout } = useAuth();
@@ -132,6 +133,9 @@ const Header = ({ toggleSidebar = () => {}, sidebarExpanded = true, isMobile = f
 
       {/* Actions utilisateur */}
       <div className="flex items-center space-x-4">
+        {/* Sélecteur d'année scolaire */}
+        <SchoolYearSelector />
+        
         {/* ✅ Bouton de notifications avec badge */}
         <div className="dropdown-container relative">
           <button

@@ -10,8 +10,10 @@ import SettingsPage from './pages/Settings/Settings';
 import RolesPage from './pages/Roles/Roles';
 import PermissionsPage from './pages/Permissions/Permissions';
 import NotificationsPage from './pages/Notifications/Notifications';
-import CategoriesPage from './pages/Categories/Categories';
-import ProductsPage from './pages/Products/Products';
+import ClassroomPage from './pages/Classroom/ClassroomPage';
+import SchoolYearPage from './pages/SchoolYear/SchoolYearPage';
+import StudentPage from './pages/Student/StudentPage';
+import PaymentPage from './pages/Payment/PaymentPage';
 
 // Composant de chargement invisible - aucun flash  
 const InvisibleLoader = () => null;
@@ -26,17 +28,32 @@ const AppRoutes = () => {
         {/* Route racine - correspond à /dashboard dans l'URL du navigateur */}
         <Route path="/" element={<HomePage />} />
         
-        {/* Routes pour les catégories */}
-        <Route path="/categories" element={
-          hasPermission('CATEGORIES_VIEW') 
-            ? <CategoriesPage /> 
+
+        {/* Routes for the classrooms */}
+        <Route path="/classrooms" element={
+          hasPermission('CLASSES_VIEW') 
+            ? <ClassroomPage /> 
             : <Navigate to="/" replace />
         } />
 
-        {/* Routes pour les produits */}
-        <Route path="/products" element={
-          hasPermission('CATEGORIES_VIEW') 
-            ? <ProductsPage /> 
+        {/* Routes for the school years */}
+        <Route path="/school-years" element={
+          hasPermission('SCHOOL_YEARS_MANAGE')
+            ? <SchoolYearPage />
+            : <Navigate to="/" replace />
+        } />
+
+        {/* Routes for the students */}
+        <Route path="/students" element={
+          hasPermission('STUDENTS_VIEW')
+            ? <StudentPage />
+            : <Navigate to="/" replace />
+        } />
+
+        {/* Routes for the payments */}
+        <Route path="/payments" element={
+          hasPermission('PAYMENTS_VIEW')
+            ? <PaymentPage />
             : <Navigate to="/" replace />
         } />
         

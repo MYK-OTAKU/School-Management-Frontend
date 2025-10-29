@@ -52,17 +52,29 @@ const Sidebar = ({ expanded, toggleSidebar, isMobile }) => {
       path: '/dashboard',
       permission: null
     },
-    { 
-      icon: <Package size={20} />, 
-      label: getTranslation('navigation.categories', 'Catégories'), 
-      path: '/dashboard/categories',
-      permission: 'CATEGORIES_VIEW'
+    {
+      icon: <Calendar size={20} />,
+      label: getTranslation('navigation.classrooms', 'Classes'),
+      path: '/dashboard/classrooms',
+      permission: 'CLASSES_VIEW'
     },
-    { 
-      icon: <ShoppingCart size={20} />, 
-      label: getTranslation('navigation.products', 'Produits'), 
-      path: '/dashboard/products',
-      permission: 'CATEGORIES_VIEW'
+    {
+      icon: <BarChart3 size={20} />,
+      label: getTranslation('navigation.schoolYears', 'Années Scolaires'),
+      path: '/dashboard/school-years',
+      permission: 'SCHOOL_YEARS_MANAGE'
+    },
+    {
+      icon: <UserPlus size={20} />,
+      label: getTranslation('navigation.students', 'Étudiants'),
+      path: '/dashboard/students',
+      permission: 'STUDENTS_VIEW'
+    },
+    {
+      icon: <DollarSign size={20} />,
+      label: getTranslation('navigation.payments', 'Paiements'),
+      path: '/dashboard/payments',
+      permission: 'PAYMENTS_VIEW'
     }
   ];
 
